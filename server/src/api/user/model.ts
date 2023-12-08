@@ -6,6 +6,12 @@ interface User {
   walletAddress: string;
 }
 
+export interface NewWalletPayload {
+  phone: number;
+  walletName: string;
+  walletAddress: string;
+}
+
 export interface GroupInfo {
   groupName: string;
   users: [];

@@ -1,6 +1,6 @@
 import database from '../../loaders/database';
 import LoggerInstance from '../../loaders/logger';
-import User, { GroupInfo } from './model';
+import User, { GroupInfo, NewWalletPayload } from './model';
 import config from '../../config';
 import { ObjectId } from 'mongodb';
 
@@ -100,7 +100,7 @@ export async function createGroup(groupInfo: GroupInfo) {
 
 export async function fetchUsers() {
   try {
-    const projection = { walletAddress: 1, username: 1, phone: 1, uid: 1, id: 1 };
+    const projection = { wallets: 1, username: 1, phone: 1, uid: 1, id: 1 };
     const user = await (await database()).collection('users').find({}, { projection }).toArray();
     console.log(user);
     return user;
@@ -109,6 +109,65 @@ export async function fetchUsers() {
     throw {
       message: 'Unauthorized Access',
       status: 401,
+    };
+  }
+}
+
+export async function addWallet(walletPayload: NewWalletPayload) {
+  try {
+    const phone = walletPayload.phone;
+    const walletName = walletPayload.walletName;
+    const walletAddress = walletPayload.walletAddress;
+
+    // Retrieve the user from the database
+    const user = await (await database()).collection('users').findOne({ phone });
+
+    if (!user) {
+      throw {
+        message: 'User not found',
+        status: 404,
+      };
+    }
+
+    // Check if the wallet address is already associated with any wallet name
+    const existingWalletName = Object.keys(user.wallets || {}).find(name => user.wallets[name] === walletAddress);
+
+    if (existingWalletName) {
+      throw {
+        message: `Wallet address is already associated with the wallet named '${existingWalletName}'`,
+        status: 400,
+      };
+    }
+
+    // Append the new wallet to the existing wallets object
+    if (!user.wallets) {
+      user.wallets = {};
+    }
+
+    // Check if the wallet name already exists
+    if (user.wallets[walletName]) {
+      throw {
+        message: 'Wallet with the same name already exists',
+        status: 400,
+      };
+    }
+
+    // Add the new wallet
+    user.wallets[walletName] = walletAddress;
+
+    // Update the user in the database
+    await (await database()).collection('users').updateOne({ phone }, { $set: { wallets: user.wallets } });
+
+    return {
+      bool: true,
+      message: 'Wallet added successfully',
+      status: 200,
+    };
+  } catch (e) {
+    LoggerInstance.error(e);
+    throw {
+      message: e.message || 'Error adding wallet',
+      status: e.status || 500,
     };
   }
 }
