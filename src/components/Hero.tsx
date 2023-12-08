@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export const Hero = () => {
   return (
     <section className="w-[90%] md:w-4/5 mx-auto h-[calc(100vh-72px)]">
@@ -22,8 +24,16 @@ export const Hero = () => {
       </div>
       <div className="mt-5">
         <div className="rounded-lg bg-gray-200 text-black flex flex-col justify-evenly">
-          <div className="bg-white text-black font-bold py-2 px-4 rounded m-3 flex justify-between items-center mt-3">
-            <span className="text-black">Harsh</span>
+          <div className="bg-white text-black font-bold py-2 px-4 rounded m-3 flex flex-col justify-between items-center mt-3 sm:flex-row space-y-3 p-4">
+            <div className="flex gap-2 items-center">
+              <Image
+                src="https://api.dicebear.com/7.x/adventurer/svg?seed=Cuddles"
+                width={50}
+                height={50}
+                alt="user profile"
+              />
+              <span className="text-black">Harsh</span>
+            </div>
             <div className="flex items-center gap-3">
               <span className="text-black font-mono font-normal">
                 Amount to settle
@@ -38,8 +48,16 @@ export const Hero = () => {
               </button>
             </div>
           </div>
-          <div className="bg-white text-black font-bold py-2 px-4 rounded m-3 flex justify-between items-center mt-3">
-            <span className="text-black">Kevin</span>
+          <div className="bg-white text-black font-bold py-2 px-4 rounded m-3 flex flex-col justify-between items-center mt-3 sm:flex-row space-y-3 p-4">
+            <div className="flex gap-2 items-center">
+              <Image
+                src="https://api.dicebear.com/7.x/adventurer/svg?seed=Cuddles"
+                width={50}
+                height={50}
+                alt="user profile"
+              />
+              <span className="text-black">Kevin</span>
+            </div>
             <div className="flex items-center gap-3">
               <span className="text-black font-mono font-normal">
                 Amount to settle
