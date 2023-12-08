@@ -1,17 +1,31 @@
 // pages/index.js or any other Next.js component
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export default function Home() {
-  const [walletAddress, setWalletAddress] = useState('');
+  const [walletAddress, setWalletAddress] = useState("");
   const [transactions, setTransactions] = useState(null);
 
   const handleGetTransactions = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/transactions?address=${walletAddress}`);
+      const response = await fetch(
+        `http://localhost:3001/api/transaction/transactions`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Wallet-Address": walletAddress,
+            // Add any other headers your API requires
+          },
+        }
+      );
+
+      console.log("hello");
+      console.log(response);
+
       const data = await response.json();
       setTransactions(data);
     } catch (error) {
-      console.error('Error fetching transactions:', error);
+      console.error("Error fetching transactions:", error);
     }
   };
 
