@@ -14,7 +14,7 @@ import { assertExists } from "../utils/assertExists";
 import { Navbar } from "@/components/Navbar";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const env = assertExists(process.env.NEXT_PUBLIC_MUMBAI_API_KEY);
+  const env = assertExists(process.env.NEXT_PUBLIC_MUMBAI_RPC_ENDPOINT);
   const { chains, publicClient } = configureChains(
     [polygonMumbai],
     [alchemyProvider({ apiKey: env }), publicProvider()]
