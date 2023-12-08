@@ -26,7 +26,7 @@ export const Navbar = () => {
 
   return (
     <motion.nav
-      className={`fixed inset-0 top-4 w-[95%] sm:w-[90%] mx-auto bg-primary font-medium text-slate-50 flex  max-sm:justify-between gap-4 px-3 max-w-7xl items-center rounded-full font-mono h-14 p-5 overflow-hidden z-10`}
+      className={`fixed inset-0 top-4 w-[95%] sm:w-[90%] mx-auto bg-primary font-medium text-slate-50 flex  max-sm:justify-between gap-4 px-3 max-w-7xl items-center rounded-full font-mono h-14 p-5 overflow-hidden z-10 `}
       variants={{
         long: { maxWidth: 950 },
         short: { maxWidth: 280 },
@@ -92,7 +92,7 @@ export const Navbar = () => {
       </motion.ul>
 
       <motion.div
-        className="w-full [--display-from:none][--display-to:inline-block] items-center"
+        className="w-full [--display-from:none][--display-to:inline-block]"
         variants={{
           hidden: {
             display: "var(--display-from, none)",
