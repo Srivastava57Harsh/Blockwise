@@ -5,5 +5,5 @@
 //   slug?: {};
 //   isPaid?: boolean;
 // }
-
 // export default OrderDetails;
+//# sourceMappingURL=model.js.map

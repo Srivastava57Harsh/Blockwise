@@ -4,12 +4,10 @@
 // import config from '../../config';
 // import { ObjectId } from 'mongodb';
 // import OrderDetails from './model';
-
 // const razorpayClient = new Razorpay({
 //   key_id: config.razorpay_key_id,
 //   key_secret: config.razorpay_key_secret,
 // });
-
 // export async function createOrder(orderDetails: OrderDetails): Promise<any> {
 //   const course = await (await database()).collection('courses').findOne({ _id: new ObjectId(orderDetails.courseId) });
 //   if (!course) {
@@ -36,7 +34,6 @@
 //         orderDetails.generateOrderId = response.id;
 //         orderDetails.slug = response;
 //         orderDetails.isPaid = false;
-
 //         await (await database()).collection('orders').insertOne(orderDetails);
 //         return {
 //           bool: true,
@@ -53,7 +50,6 @@
 //     }
 //   }
 // }
-
 // export async function checkOrderStatus(orderId: string): Promise<any> {
 //   const orderStatus = await (await database()).collection('orders').findOne({ generateOrderId: orderId });
 //   if (!orderStatus) {
@@ -75,3 +71,4 @@
 //     }
 //   }
 // }
+//# sourceMappingURL=controller.js.map

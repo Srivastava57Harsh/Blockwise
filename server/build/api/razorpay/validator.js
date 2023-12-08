@@ -2,12 +2,10 @@
 // import LoggerInstance from '../../loaders/logger';
 // import { getProfileSchema } from '../user/schema';
 // import { createOrderSchema, orderStatusSchema } from './schema';
-
 // export async function createOrderValidator(req: Request, res: Response, next: NextFunction): Promise<void> {
 //   try {
 //     req.body = await createOrderSchema.validate(req.body, { stripUnknown: true });
 //     req.headers = await getProfileSchema.validate(req.headers);
-
 //     next();
 //   } catch (e) {
 //     LoggerInstance.error(e);
@@ -17,7 +15,6 @@
 //     });
 //   }
 // }
-
 // export async function orderStatusValidator(req: Request, res: Response, next: NextFunction): Promise<void> {
 //   try {
 //     req.body = await orderStatusSchema.validate(req.body, { stripUnknown: true });
@@ -30,3 +27,4 @@
 //     });
 //   }
 // }
+//# sourceMappingURL=validator.js.map
