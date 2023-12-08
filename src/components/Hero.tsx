@@ -75,7 +75,7 @@ export const Hero = () => {
           </div>
         </div>
       </div>
-      <div className="mt-5">
+      <div className="mt-5 ">
         <div className=" rounded-lg bg-gray-200 text-black">
           <Transactions />
         </div>

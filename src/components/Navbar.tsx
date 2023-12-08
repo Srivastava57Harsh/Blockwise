@@ -84,7 +84,7 @@ export const Navbar = () => {
           <Link href="/">{"//Home"}</Link>
         </li>
         <li>
-          <Link href="/transactions">{"//Transactions"}</Link>
+          <Link href="/group">{"//Groups"}</Link>
         </li>
         <li>
           <Link href="wallets">{"//wallets"}</Link>
