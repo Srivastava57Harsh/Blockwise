@@ -16,9 +16,14 @@ async function handleTransactions(req: Request, res: Response) {
   }
 
   try {
-    await Moralis.start({
-      apiKey: '85yl2Ke8rQsciJKsNglvOq9aBFIsRYADqMV9KcJ0QjWGOyaeH3uxcRQvhtdKxgGr',
-    });
+    if (!Moralis.Core.isStarted) {
+      await Moralis.start({
+        apiKey: '85yl2Ke8rQsciJKsNglvOq9aBFIsRYADqMV9KcJ0QjWGOyaeH3uxcRQvhtdKxgGr',
+      });
+    }
+    // await Moralis.start({
+    //   apiKey: '85yl2Ke8rQsciJKsNglvOq9aBFIsRYADqMV9KcJ0QjWGOyaeH3uxcRQvhtdKxgGr',
+    // });
 
     const response = await Moralis.EvmApi.transaction.getWalletTransactions({
       chain: EvmChain.ETHEREUM,
