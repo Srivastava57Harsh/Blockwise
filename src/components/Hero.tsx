@@ -1,5 +1,6 @@
 import Transactions from "@/components/Transactions";
 import Image from "next/image";
+import { TotalBalance } from "./TotalBalance";
 
 export const Hero = () => {
   return (
@@ -19,9 +20,8 @@ export const Hero = () => {
             </div>
           </div>
         </div>
-        <div className="h-32 rounded-lg bg-gray-200 mt-5 text-black">
-          net worth chart
-        </div>
+
+        <TotalBalance />
       </div>
       <div className="mt-5">
         <div className="rounded-lg bg-gray-200 text-black flex flex-col justify-evenly">
