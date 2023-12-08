@@ -31,6 +31,33 @@ export async function createUser(user: User): Promise<any> {
   }
 }
 
+export async function checkUser(address: string): Promise<any> {
+  console.log(address);
+  const userExists = await (await database()).collection('users').findOne({ walletAddress: address });
+  if (userExists) {
+    return {
+      bool: true,
+      message: 'User already registered',
+      status: 200,
+    };
+  } else {
+    try {
+      return {
+        bool: false,
+        message: 'New User',
+        status: 200,
+      };
+    } catch (e) {
+      LoggerInstance.error(e);
+      throw {
+        bool: false,
+        message: 'User could not be created',
+        status: 400,
+      };
+    }
+  }
+}
+
 export async function createGroup(users: string[]) {
   try {
     // console.log(users);

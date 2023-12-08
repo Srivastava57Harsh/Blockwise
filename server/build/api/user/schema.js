@@ -26,6 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.signUpSchema = void 0;
 const yup = __importStar(require("yup"));
 const signUp = {
+    username: yup.string().required(),
     phone: yup.number().required(),
     upi: yup.string().required(),
     walletAddress: yup.string().required(),

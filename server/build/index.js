@@ -14,7 +14,7 @@ async function startServer() {
         .listen(config_1.default.port, () => {
         logger_1.default.info(`
       #########################################
-      🛡️  Server listening on port: ${config_1.default.port} 🛡️
+        🛡️  Server listening on port: ${config_1.default.port} 🛡️
       #########################################
     `);
     })

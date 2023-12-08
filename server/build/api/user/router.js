@@ -32,7 +32,7 @@ async function handleSignUp(req, res) {
 }
 async function handleCreateGroup(req, res) {
     try {
-        const result = await (0, controller_1.createGroup)(req.body);
+        const result = await (0, controller_1.createGroup)(req.body.users);
         res.status(200).json({
             message: 'Success',
             data: result,

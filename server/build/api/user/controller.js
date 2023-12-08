@@ -37,12 +37,18 @@ async function createUser(user) {
 exports.createUser = createUser;
 async function createGroup(users) {
     try {
-        const query = { name: { $in: users } };
-        const projection = { _id: 0, name: 1, walletAddress: 1 }; // Include only necessary fields
-        const result = await (await (0, database_1.default)()).collection('users').find(query).project(projection).toArray();
-        console.log(result);
-        await (await (0, database_1.default)()).collection('group').insertOne(result);
-        return result;
+        // console.log(users);
+        const query = { username: { $in: users } };
+        const projection = { _id: 0, username: 1, walletAddress: 1 }; // Include only necessary fields
+        const resultArray = await (await (0, database_1.default)()).collection('users').find(query).project(projection).toArray();
+        // console.log(resultArray);
+        const resultObject = {};
+        resultArray.map(user => {
+            resultObject[user.username] = user.walletAddress;
+        });
+        // console.log(resultObject);
+        await (await (0, database_1.default)()).collection('groups').insertOne(resultObject);
+        return true;
     }
     catch (e) {
         logger_1.default.error(e);
@@ -55,7 +61,7 @@ async function createGroup(users) {
 exports.createGroup = createGroup;
 async function fetchUsers() {
     try {
-        const projection = { walletAddress: 1, name: 1, phone: 1, uid: 1, id: 1 };
+        const projection = { walletAddress: 1, username: 1, phone: 1, uid: 1, id: 1 };
         const user = await (await (0, database_1.default)()).collection('users').find({}, { projection }).toArray();
         console.log(user);
         return user;
