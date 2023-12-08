@@ -12,5 +12,12 @@ const createGroup = {
   users: yup.array().required(),
 };
 
+const addWallet = {
+  phone: yup.number().required(),
+  walletName: yup.string().required(),
+  walletAddress: yup.string().required(),
+};
+
 export const signUpSchema = new yup.ObjectSchema(signUp);
 export const createGroupSchema = new yup.ObjectSchema(createGroup);
+export const addWalletSchema = new yup.ObjectSchema(addWallet);
