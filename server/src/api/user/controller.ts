@@ -31,14 +31,40 @@ export async function createUser(user: User): Promise<any> {
   }
 }
 
-export async function createGroup(users: []) {
+export async function createGroup(users: string[]) {
   try {
-    const query = { name: { $in: users } };
-    const projection = { _id: 0, name: 1, walletAddress: 1 }; // Include only necessary fields
-    const result = await (await database()).collection('users').find(query).project(projection).toArray();
-    console.log(result);
-    await (await database()).collection('group').insertOne(result);
-    return result;
+    // console.log(users);
+
+    const query = { username: { $in: users } };
+    const projection = { _id: 0, username: 1, walletAddress: 1 }; // Include only necessary fields
+    const resultArray = await (await database()).collection('users').find(query).project(projection).toArray();
+
+    // console.log(resultArray);
+
+    const resultObject = {};
+    resultArray.map(user => {
+      resultObject[user.username] = user.walletAddress;
+    });
+
+    // console.log(resultObject);
+
+    await (await database()).collection('groups').insertOne(resultObject);
+    return true;
+  } catch (e) {
+    LoggerInstance.error(e);
+    throw {
+      message: 'Unauthorized Access',
+      status: 401,
+    };
+  }
+}
+
+export async function fetchUsers() {
+  try {
+    const projection = { walletAddress: 1, username: 1, phone: 1, uid: 1, id: 1 };
+    const user = await (await database()).collection('users').find({}, { projection }).toArray();
+    console.log(user);
+    return user;
   } catch (e) {
     LoggerInstance.error(e);
     throw {
