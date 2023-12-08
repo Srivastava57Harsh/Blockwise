@@ -4,6 +4,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { GiSplitCross } from "react-icons/gi";
 
 export const Navbar = () => {
@@ -91,7 +92,7 @@ export const Navbar = () => {
       </motion.ul>
 
       <motion.div
-        className="w-full [--display-from:none][--display-to:inline-block] "
+        className="w-full [--display-from:none][--display-to:inline-block] items-center"
         variants={{
           hidden: {
             display: "var(--display-from, none)",
@@ -105,9 +106,7 @@ export const Navbar = () => {
         initial="hidden"
         animate={hidden ? "visible" : "hidden"}
       >
-        <Button variant={"accent"} className="w-full">
-          <span className="text-black">Wallets</span>
-        </Button>
+        <ConnectButton accountStatus={"avatar"} />
       </motion.div>
 
       <Button
