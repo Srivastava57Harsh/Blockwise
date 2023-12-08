@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createGroup = exports.createUser = void 0;
+exports.fetchUsers = exports.createGroup = exports.createUser = void 0;
 const database_1 = __importDefault(require("../../loaders/database"));
 const logger_1 = __importDefault(require("../../loaders/logger"));
 async function createUser(user) {
@@ -53,4 +53,20 @@ async function createGroup(users) {
     }
 }
 exports.createGroup = createGroup;
+async function fetchUsers() {
+    try {
+        const projection = { walletAddress: 1, name: 1, phone: 1, uid: 1, id: 1 };
+        const user = await (await (0, database_1.default)()).collection('users').find({}, { projection }).toArray();
+        console.log(user);
+        return user;
+    }
+    catch (e) {
+        logger_1.default.error(e);
+        throw {
+            message: 'Unauthorized Access',
+            status: 401,
+        };
+    }
+}
+exports.fetchUsers = fetchUsers;
 //# sourceMappingURL=controller.js.map
