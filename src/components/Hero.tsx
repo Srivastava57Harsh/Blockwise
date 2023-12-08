@@ -8,14 +8,14 @@ export const Hero = () => {
         <div className=" rounded-lg bg-gray-200 mt-5 flex flex-col justify-evenly">
           <div className="bg-white text-black font-bold py-2 px-4 rounded m-3 flex justify-between items-center">
             <span className="text-black">Wallet 1</span>
-            <div className="bg-gray-200 rounded-lg p-2">
-              <span className="text-black font-thin">0.11 ETH</span>
+            <div className="bg-[#79D17F] rounded-lg p-2 shadow-lg">
+              <span className="text-black font-thin font-mono">0.11 ETH</span>
             </div>
           </div>
           <div className="bg-white text-black font-bold py-2 px-4 rounded m-3 flex justify-between items-center">
             <span className="text-black">Wallet 2</span>
-            <div className="bg-gray-200 rounded-lg p-2">
-              <span className="text-black font-thin">0.11 ETH</span>
+            <div className="bg-[#79D17F] rounded-lg p-2 shadow-lg">
+              <span className="text-black font-mono font-thin">0.11 ETH</span>
             </div>
           </div>
         </div>
@@ -39,8 +39,10 @@ export const Hero = () => {
               <span className="text-black font-mono font-normal">
                 Amount to settle
               </span>
-              <div className="bg-gray-200 rounded-lg p-2">
-                <span className="text-black font-thin">0.11 ETH</span>
+              <div className="bg-[#79D17F] rounded-lg p-2 shadow-lg">
+                <span className="text-black font-thin  font-mono">
+                  0.11 ETH
+                </span>
               </div>
             </div>
             <div className="bg-black rounded-lg p-2">
@@ -63,8 +65,10 @@ export const Hero = () => {
               <span className="text-black font-mono font-normal">
                 Amount to settle
               </span>
-              <div className="bg-gray-200 rounded-lg p-2">
-                <span className="text-black font-thin">0.11 ETH</span>
+              <div className="bg-[#79D17F] rounded-lg p-2 shadow-lg">
+                <span className="text-black font-thin  font-mono">
+                  0.11 ETH
+                </span>
               </div>
             </div>
             <div className="bg-black rounded-lg p-2">
@@ -75,7 +79,7 @@ export const Hero = () => {
           </div>
         </div>
       </div>
-      <div className="mt-5">
+      <div className="mt-5 ">
         <div className=" rounded-lg bg-gray-200 text-black">
           <Transactions />
         </div>
