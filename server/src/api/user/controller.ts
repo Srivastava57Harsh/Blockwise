@@ -14,6 +14,10 @@ export async function createUser(user: User): Promise<any> {
     };
   } else {
     try {
+      user.wallets = {
+        primary_wallet: user.walletAddress,
+      };
+      delete user.walletAddress;
       await (await database()).collection('users').insertOne(user);
       return {
         bool: true,

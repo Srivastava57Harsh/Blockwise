@@ -10,6 +10,7 @@ const moralisRouter = Router();
 
 async function handleTransactions(req: Request, res: Response) {
   const walletAddress = req.headers['wallet-address'];
+  const chainID = req.headers['chain'];
 
   if (req.method !== 'GET') {
     return res.status(405).end(); // Method Not Allowed
@@ -21,12 +22,11 @@ async function handleTransactions(req: Request, res: Response) {
         apiKey: '85yl2Ke8rQsciJKsNglvOq9aBFIsRYADqMV9KcJ0QjWGOyaeH3uxcRQvhtdKxgGr',
       });
     }
-    // await Moralis.start({
-    //   apiKey: '85yl2Ke8rQsciJKsNglvOq9aBFIsRYADqMV9KcJ0QjWGOyaeH3uxcRQvhtdKxgGr',
-    // });
+
+    console.log(chainID);
 
     const response = await Moralis.EvmApi.transaction.getWalletTransactions({
-      chain: EvmChain.ETHEREUM,
+      chain: typeof chainID === 'string' ? chainID : EvmChain.ETHEREUM,
       address: (walletAddress as string) || '0x8EA809076374708aEF0d6e9C3F0a7A64CAD17368',
     });
 
