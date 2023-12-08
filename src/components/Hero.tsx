@@ -1,3 +1,4 @@
+import Transactions from "@/components/Transactions";
 import Image from "next/image";
 
 export const Hero = () => {
@@ -75,8 +76,8 @@ export const Hero = () => {
         </div>
       </div>
       <div className="mt-5">
-        <div className="h-32 rounded-lg bg-gray-200 text-black">
-          transaction
+        <div className=" rounded-lg bg-gray-200 text-black">
+          <Transactions />
         </div>
       </div>
     </section>
