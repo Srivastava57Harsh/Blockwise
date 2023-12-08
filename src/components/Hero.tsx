@@ -1,74 +1,87 @@
+import Transactions from "@/components/Transactions";
+import Image from "next/image";
+
 export const Hero = () => {
   return (
     <section className="w-[90%] md:w-4/5 mx-auto h-[calc(100vh-72px)]">
-      <div className="flex flex-col items-center justify-evenly h-full">
-        <div className=" py-6 sm:px-6 lg:px-8  mt-24">
-          <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
-              <a
-                href="#"
-                className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-white shadow-lg md:h-80 border-2 border-gray-200"
-              >
-                <div className="pointer-events-none bg-white shadow-lg  bg-clip-border rounded-xl"></div>
-                <span className="relative ml-4 mb-3 inline-block text-sm text-black md:ml-5 md:text-lg">
-                  Total connected wallets
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 ">
+        <div className=" rounded-lg bg-gray-200 mt-5 flex flex-col justify-evenly">
+          <div className="bg-white text-black font-bold py-2 px-4 rounded m-3 flex justify-between items-center">
+            <span className="text-black">Wallet 1</span>
+            <div className="bg-[#79D17F] rounded-lg p-2 shadow-lg">
+              <span className="text-black font-thin font-mono">0.11 ETH</span>
+            </div>
+          </div>
+          <div className="bg-white text-black font-bold py-2 px-4 rounded m-3 flex justify-between items-center">
+            <span className="text-black">Wallet 2</span>
+            <div className="bg-[#79D17F] rounded-lg p-2 shadow-lg">
+              <span className="text-black font-mono font-thin">0.11 ETH</span>
+            </div>
+          </div>
+        </div>
+        <div className="h-32 rounded-lg bg-gray-200 mt-5 text-black">
+          net worth chart
+        </div>
+      </div>
+      <div className="mt-5">
+        <div className="rounded-lg bg-gray-200 text-black flex flex-col justify-evenly">
+          <div className="bg-white text-black font-bold py-2 px-4 rounded m-3 flex flex-col justify-between items-center mt-3 sm:flex-row space-y-3 p-4">
+            <div className="flex gap-2 items-center">
+              <Image
+                src="https://api.dicebear.com/7.x/adventurer/svg?seed=Cuddles"
+                width={50}
+                height={50}
+                alt="user profile"
+              />
+              <span className="text-black">Harsh</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-black font-mono font-normal">
+                Amount to settle
+              </span>
+              <div className="bg-[#79D17F] rounded-lg p-2 shadow-lg">
+                <span className="text-black font-thin  font-mono">
+                  0.11 ETH
                 </span>
-              </a>
-              <a
-                href="#"
-                className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-white shadow-lg md:col-span-2 md:h-80 border-2 border-gray-200 "
-              >
-                <div className="pointer-events-none bg-white shadow-lg bg-clip-border rounded-xl"></div>
-                <span className="relative ml-4 mb-3 inline-block text-sm text-black md:ml-5 md:text-lg">
-                  Total balance
+              </div>
+            </div>
+            <div className="bg-black rounded-lg p-2">
+              <button className="text-white font-mono font-thin">
+                Settle Up
+              </button>
+            </div>
+          </div>
+          <div className="bg-white text-black font-bold py-2 px-4 rounded m-3 flex flex-col justify-between items-center mt-3 sm:flex-row space-y-3 p-4">
+            <div className="flex gap-2 items-center">
+              <Image
+                src="https://api.dicebear.com/7.x/adventurer/svg?seed=Cuddles"
+                width={50}
+                height={50}
+                alt="user profile"
+              />
+              <span className="text-black">Kevin</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-black font-mono font-normal">
+                Amount to settle
+              </span>
+              <div className="bg-[#79D17F] rounded-lg p-2 shadow-lg">
+                <span className="text-black font-thin  font-mono">
+                  0.11 ETH
                 </span>
-              </a>
-              <a
-                href="#"
-                className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-white shadow-lg md:col-span-2 md:h-80 border-2 border-gray-200 "
-              >
-                <div className="pointer-events-none bg-white shadow-lg bg-clip-border rounded-xl"></div>
-                <span className="relative ml-4 mb-3 inline-block text-sm text-black md:ml-5 md:text-lg">
-                  people to settle up
-                </span>
-              </a>
+              </div>
+            </div>
+            <div className="bg-black rounded-lg p-2">
+              <button className="text-white font-mono font-thin">
+                Settle Up
+              </button>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-evenly h-full">
-        <div className=" py-6 sm:px-6 lg:px-8  mt-24">
-          <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
-              <a
-                href="#"
-                className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-white shadow-lg md:h-80 border-2 border-gray-200"
-              >
-                <div className="pointer-events-none bg-white shadow-lg  bg-clip-border rounded-xl"></div>
-                <span className="relative ml-4 mb-3 inline-block text-sm text-black md:ml-5 md:text-lg">
-                  Total connected wallets
-                </span>
-              </a>
-              <a
-                href="#"
-                className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-white shadow-lg md:col-span-2 md:h-80 border-2 border-gray-200 "
-              >
-                <div className="pointer-events-none bg-white shadow-lg bg-clip-border rounded-xl"></div>
-                <span className="relative ml-4 mb-3 inline-block text-sm text-black md:ml-5 md:text-lg">
-                  Total balance
-                </span>
-              </a>
-              <a
-                href="#"
-                className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-white shadow-lg md:col-span-2 md:h-80 border-2 border-gray-200 "
-              >
-                <div className="pointer-events-none bg-white shadow-lg bg-clip-border rounded-xl"></div>
-                <span className="relative ml-4 mb-3 inline-block text-sm text-black md:ml-5 md:text-lg">
-                  people to settle up
-                </span>
-              </a>
-            </div>
-          </div>
+      <div className="mt-5 ">
+        <div className=" rounded-lg bg-gray-200 text-black">
+          <Transactions />
         </div>
       </div>
     </section>

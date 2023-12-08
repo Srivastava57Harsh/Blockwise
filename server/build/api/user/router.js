@@ -32,7 +32,7 @@ async function handleSignUp(req, res) {
 }
 async function handleCreateGroup(req, res) {
     try {
-        const result = await (0, controller_1.createGroup)(req.body);
+        const result = await (0, controller_1.createGroup)(req.body.users);
         res.status(200).json({
             message: 'Success',
             data: result,
@@ -45,7 +45,23 @@ async function handleCreateGroup(req, res) {
         });
     }
 }
+async function handleFetchUsers(req, res) {
+    try {
+        const user = await (0, controller_1.fetchUsers)();
+        res.status(200).json({
+            message: 'Success',
+            data: user,
+        });
+    }
+    catch (e) {
+        logger_1.default.error(e);
+        res.status(e.status || 500).json({
+            message: e.message || 'Request Failed',
+        });
+    }
+}
 userRouter.post('/signUp', validator_1.signUpValidator, handleSignUp);
-userRouter.get('/createGroup', handleCreateGroup);
+userRouter.post('/createGroup', handleCreateGroup);
+userRouter.get('/fetchUsers', handleFetchUsers);
 exports.default = userRouter;
 //# sourceMappingURL=router.js.map

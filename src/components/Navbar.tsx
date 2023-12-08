@@ -89,10 +89,13 @@ export const Navbar = () => {
         <li>
           <Link href="wallets">{"//wallets"}</Link>
         </li>
+        <li>
+          <ConnectButton accountStatus={"avatar"} />
+        </li>
       </motion.ul>
 
       <motion.div
-        className="w-full [--display-from:none][--display-to:inline-block]"
+        className="w-max flex flex-right [--display-from:none][--display-to:inline-block]"
         variants={{
           hidden: {
             display: "var(--display-from, none)",
