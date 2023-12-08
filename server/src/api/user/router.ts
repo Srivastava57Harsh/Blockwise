@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import LoggerInstance from '../../loaders/logger';
 import { createUser, createGroup, fetchUsers, checkUser } from './controller';
-import { signUpValidator } from './validator';
+import { GroupInfoValidator, signUpValidator } from './validator';
 const userRouter = Router();
 
 async function handleSignUp(req: Request, res: Response) {
@@ -42,7 +42,7 @@ async function handleCheckUser(req: Request, res: Response) {
 
 async function handleCreateGroup(req: Request, res: Response) {
   try {
-    const result = await createGroup(req.body.users);
+    const result = await createGroup(req.body);
 
     res.status(200).json({
       message: 'Success',
@@ -73,7 +73,7 @@ async function handleFetchUsers(req: Request, res: Response) {
 
 userRouter.post('/signUp', signUpValidator, handleSignUp);
 userRouter.post('/checkUser', handleCheckUser);
-userRouter.post('/createGroup', handleCreateGroup);
+userRouter.post('/createGroup', GroupInfoValidator, handleCreateGroup);
 userRouter.get('/fetchUsers', handleFetchUsers);
 
 export default userRouter;

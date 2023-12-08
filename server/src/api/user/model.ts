@@ -5,4 +5,9 @@ interface User {
   walletAddress: string;
 }
 
+export interface GroupInfo {
+  groupName: string;
+  users: [];
+}
+
 export default User;

@@ -1,6 +1,6 @@
 import database from '../../loaders/database';
 import LoggerInstance from '../../loaders/logger';
-import User from './model';
+import User, { GroupInfo } from './model';
 import config from '../../config';
 import { ObjectId } from 'mongodb';
 
@@ -58,11 +58,12 @@ export async function checkUser(address: string): Promise<any> {
   }
 }
 
-export async function createGroup(users: string[]) {
+export async function createGroup(groupInfo: GroupInfo) {
   try {
+    console.log(groupInfo);
     // console.log(users);
 
-    const query = { username: { $in: users } };
+    const query = { username: { $in: groupInfo.users } };
     const projection = { _id: 0, username: 1, walletAddress: 1 }; // Include only necessary fields
     const resultArray = await (await database()).collection('users').find(query).project(projection).toArray();
 
@@ -73,9 +74,16 @@ export async function createGroup(users: string[]) {
       resultObject[user.username] = user.walletAddress;
     });
 
-    // console.log(resultObject);
+    console.log(resultObject);
 
-    await (await database()).collection('groups').insertOne(resultObject);
+    const payload = {
+      groupName: groupInfo.groupName,
+      members: resultObject,
+    };
+
+    console.log(payload);
+
+    await (await database()).collection('groups').insertOne(payload);
     return true;
   } catch (e) {
     LoggerInstance.error(e);
