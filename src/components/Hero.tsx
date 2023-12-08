@@ -44,7 +44,6 @@ export const Hero = () => {
                 href="#"
                 className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-white shadow-lg md:h-80 border-2 border-gray-200"
               >
-                <div className="pointer-events-none bg-white shadow-lg  bg-clip-border rounded-xl"></div>
                 <span className="relative ml-4 mb-3 inline-block text-sm text-black md:ml-5 md:text-lg">
                   Total connected wallets
                 </span>
