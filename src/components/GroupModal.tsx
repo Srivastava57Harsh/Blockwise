@@ -21,7 +21,6 @@ export default function Modal() {
   const [splitAmount, setSplitAmount] = useState("");
   const [amountInWei, setAmountInWei] = useState("");
 
-
   const [newPerson, setNewPerson] = useState({
     name: "",
     walletAddress: "",
@@ -45,7 +44,7 @@ export default function Modal() {
     e.preventDefault();
     if (newPerson.name && newPerson.walletAddress) {
       setPersons([...persons, newPerson]);
-      setWalletAddresses([...walletAddresses, newPerson.walletAddress]); 
+      setWalletAddresses([...walletAddresses, newPerson.walletAddress]);
       setNewPerson({
         name: "",
         walletAddress: "",
@@ -63,7 +62,6 @@ export default function Modal() {
       setAmountInWei(wei);
     }
   }, [splitAmount]);
-  
 
   const { config } = usePrepareContractWrite({
     address: "0xf3Ca255e5b8d726c5a8A38689e4C44b1Bb372c5B",
@@ -74,15 +72,15 @@ export default function Modal() {
     onError(error: any) {
       console.log("Error", error);
     },
-  })
+  });
 
-  const { data, isLoading, isSuccess, write } = useContractWrite(config)
+  const { data, isLoading, isSuccess, write } = useContractWrite(config);
 
   const splitExpense = () => {
     console.log("Button was clicked!");
     write?.();
-  }
-  
+  };
+
   return (
     <>
       <button
@@ -120,9 +118,7 @@ export default function Modal() {
                       className="mx-auto mb-0 mt-8 max-w-md space-y-4"
                     >
                       <div className="space-y-2">
-                        <label htmlFor="groupName" className="">
-                          Group Name
-                        </label>
+                        <label htmlFor="groupName">Group Name</label>
                         <div className="relative">
                           <input
                             type="text"
@@ -133,7 +129,8 @@ export default function Modal() {
                           />
                         </div>
                       </div>
-
+                      <div className="space-y-2">
+                        <label htmlFor="splitAmount">Split Amount</label>
                         <div className="relative">
                           <input
                             type="number"
@@ -145,10 +142,7 @@ export default function Modal() {
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <label htmlFor="memberName" className="">
-                          Bearer Name
-                        </label>
-
+                        <label htmlFor="memberName">Bearer Name</label>
                         <div className="relative text-black">
                           <input
                             type="text"
@@ -160,10 +154,9 @@ export default function Modal() {
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <label htmlFor="memberAddr" className="">
+                        <label htmlFor="memberAddr">
                           Bearer Wallet address
                         </label>
-
                         <div className="relative text-black">
                           <input
                             type="text"
@@ -180,7 +173,6 @@ export default function Modal() {
                       >
                         <span className="font-mono">Add more persons</span>
                       </button>
-
                       <div className="bg-gray-200 p-3 rounded-lg">
                         <h2 className="text-lg font-mono text-black">
                           List of Persons added
