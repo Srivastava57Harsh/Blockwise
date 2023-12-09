@@ -34,6 +34,22 @@ export default function ChatPage() {
     // write?.();
   }
 
+  function convertToObjects(array) {
+    const result = {};
+  
+    const addresses = array[0];
+    const shares = array[1];
+  
+    for (let i = 0; i < addresses.length; i++) {
+      const walletAddress = addresses[i];
+      const share = shares[i];
+  
+      result[walletAddress] = share;
+    }
+      
+    console.log(result);
+    return result;
+  }
 
   // Inside your component...
   const { data, isError, isLoading } = useContractRead({
@@ -50,6 +66,7 @@ export default function ChatPage() {
     if (data) {
       setShares(data);
       console.log(shares);
+      convertToObjects(shares);
     }
   }, [data, isError, shares]);
   

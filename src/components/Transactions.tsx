@@ -6,6 +6,8 @@ export const Transactions = () => {
   const { chain, chains } = useNetwork();
   const [transactions, setTransactions] = useState([]);
 
+  const chainName = chain.name; 
+
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
@@ -14,8 +16,8 @@ export const Transactions = () => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              "Wallet-Address": address,
-              "Chain-Id": chain.name,
+              "wallet-address": address,
+              "chain": chainName,
             },
           });
 
