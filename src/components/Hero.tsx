@@ -1,10 +1,12 @@
 import Transactions from "@/components/Transactions";
 import Image from "next/image";
 import { TotalBalance } from "./TotalBalance";
+import { Navbar } from "./Navbar";
 
 export const Hero = () => {
   return (
     <section className="w-[90%] md:w-4/5 mx-auto h-[calc(100vh-72px)]">
+      <Navbar />
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 ">
         <div className=" rounded-lg bg-gray-200 mt-5 flex flex-col justify-evenly">
           <div className="bg-white text-black font-bold py-2 px-4 rounded m-3 flex justify-between items-center">
