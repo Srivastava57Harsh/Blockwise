@@ -12,8 +12,49 @@ import { publicProvider } from "wagmi/providers/public";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { assertExists } from "../utils/assertExists";
 import { Navbar } from "@/components/Navbar";
+import {
+  handleCreateContact,
+  handleCreateFunds,
+  handleCreatePayout,
+} from "@/services/handleRazorpay";
+import { useEffect } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
+  //RAZORPAY TESTING API CODE
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     let data: { id?: string | undefined } | void; // Declare the type explicitly
+
+  //     try {
+  //       data = await handleCreateContact(7428023863);
+
+  //       if (data && data.id) {
+  //         // Check if 'id' property exists in the data
+  //         const res = await handleCreateFunds("7428023863@paytm", data.id);
+  //         console.log(res);
+
+  //         if (res && res.id) {
+  //           const amount = 10000;
+  //           const result = await handleCreatePayout(res.id, amount);
+  //           console.log(result);
+  //         }
+  //       } else {
+  //         console.error(
+  //           'Invalid or missing "id" property in the response from handleCreateContact'
+  //         );
+  //       }
+
+  //       // console.log("HIIIII", data);
+  //       // Your other asynchronous operations can go here
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [1]);
+
   const env = assertExists(process.env.NEXT_PUBLIC_MUMBAI_RPC_ENDPOINT);
   const { chains, publicClient } = configureChains(
     [polygonMumbai],
