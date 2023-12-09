@@ -6,6 +6,7 @@ import {
   useContractRead,
 } from "wagmi";
 import ContractABI from "../../artifacts/contracts/SplitExpense.sol/SplitExpense.json";
+import CreateSplitModal from "./CreateSplitModal";
 
 export default function ChatPage() {
   const [walletAddresses, setWalletAddresses] = useState([
@@ -157,22 +158,10 @@ export default function ChatPage() {
         </div>
 
         <div className="flex w-full items-center justify-between border-t border-gray-300 p-3">
-          <button
-            className="bg-[#79D17F] hover:bg-blue-700 lg-200 w-3/5 text-white font-bold py-2 px-4 rounded"
-            onClick={splitExpense}
-          >
-            Split Expense
-          </button>
+          <CreateSplitModal />
 
-          <input
-            type="text"
-            placeholder="Message"
-            className="mx-3 block w-2/5 rounded-full bg-gray-100 py-2 pl-4 outline-none focus:text-gray-700"
-            name="message"
-            required
-          />
           <button></button>
-          <button type="submit">
+          <button type="submit" className="bg-black p-3 rounded-lg">
             <svg
               className="h-6 w-6 origin-center rotate-90 transform text-white"
               xmlns="http://www.w3.org/2000/svg"

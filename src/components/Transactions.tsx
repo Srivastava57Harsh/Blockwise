@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useAccount, useNetwork } from 'wagmi';
+import { useAccount, useNetwork } from "wagmi";
 
 export const Transactions = () => {
   const { address, isConnecting, isDisconnected } = useAccount();

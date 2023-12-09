@@ -1,10 +1,9 @@
 import { Hero } from "@/components/Hero";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { useAccount } from "wagmi";
 import { useEffect } from "react";
 
-export default function Home() {
+export default function Dashboard() {
   const router = useRouter();
   const { address, isConnected, isDisconnected } = useAccount();
   useEffect(() => {
@@ -14,7 +13,11 @@ export default function Home() {
   }, [isDisconnected, router]);
 
   if (isConnected) {
-    router.push("/dashboard");
+    return (
+      <main className="mt-[calc(16px+56px)]">
+        <Hero />
+      </main>
+    );
   }
 
   return null;

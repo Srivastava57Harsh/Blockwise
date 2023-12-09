@@ -18,6 +18,7 @@ import {
   handleCreatePayout,
 } from "@/services/handleRazorpay";
 import { useEffect } from "react";
+import { useAccount } from "wagmi";
 
 export default function App({ Component, pageProps }: AppProps) {
   //RAZORPAY TESTING API CODE
@@ -86,7 +87,6 @@ export default function App({ Component, pageProps }: AppProps) {
           overlayBlur: "small",
         })}
       >
-        <Navbar />
         <Component {...pageProps} />
       </RainbowKitProvider>
     </WagmiConfig>
