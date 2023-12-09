@@ -1,7 +1,7 @@
 export default function ChatPage() {
     return (
       <div className="hidden lg:col-span-2 lg:block">
-        <div className="w-full">
+        <div className="w-full bg-200">
           <div className="relative flex items-center border-b border-black-300 p-3">
             <img
               className="h-10 w-10 rounded-full object-cover"
@@ -16,8 +16,8 @@ export default function ChatPage() {
           <div className="relative h-[40rem] w-full overflow-y-auto p-6">
             <ul className="space-y-2">
               <li className="flex justify-start">
-                <div className="relative max-w-xl rounded px-4 py-2 text-gray-700 shadow">
-                  <span className="block">Hi</span>
+                <div className="relative max-w-xl rounded bg-gray-100 px-4 py-2 text-gray-700 shadow">
+                  <span className="block" bg-grey>Hi</span>
                 </div>
               </li>
               <li className="flex justify-end">
@@ -31,9 +31,32 @@ export default function ChatPage() {
                 </div>
               </li>
               <li className="flex justify-start">
-                <div className="relative max-w-xl bg-red rounded px-4 py-2 text-gray-700 shadow">
+                <div className="relative max-w-xl rounded bg-gray-100 px-4 py-2 text-gray-700 shadow">
                   <span className="block">
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit.{" "}
+                  </span>
+                </div>
+              </li>
+              <li className="flex justify-start">
+                <div className="relative max-w-xl rounded bg-gray-100 px-4 py-2 text-gray-700 shadow">
+                  <span className="block">
+                  <div className="relative flex flex-col  text-gray-700 bg-white shadow-md bg-clip-border w-96 rounded-lg">
+                    <div className="p-6 ">
+                        <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                            Rs.2,520
+                        </h5>
+                    <p className="block font-sans text-bold font:mono antialiased font-light leading-relaxed text-inherit">
+                        Expense for cab
+                    </p>
+                </div>
+                <div className="p-6 pt-0">
+                    <button
+                    className="rounded-none align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6  bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+                    type="button">
+                    Settle the expense
+                    </button>
+                </div>
+                </div>
                   </span>
                 </div>
               </li>
