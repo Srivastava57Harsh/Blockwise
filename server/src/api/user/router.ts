@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import LoggerInstance from '../../loaders/logger';
-import { createUser, createGroup, fetchUsers, checkUser, addWallet } from './controller';
+import { createUser, createGroup, fetchUsers, checkUser, addWallet, fetchGroups } from './controller';
 import { AddWalletValidator, GroupInfoValidator, signUpValidator } from './validator';
 const userRouter = Router();
 
@@ -71,6 +71,21 @@ async function handleFetchUsers(req: Request, res: Response) {
   }
 }
 
+async function handleFetchGroups(req: Request, res: Response) {
+  try {
+    const user = await fetchGroups();
+    res.status(200).json({
+      message: 'Success',
+      data: user,
+    });
+  } catch (e) {
+    LoggerInstance.error(e);
+    res.status(e.status || 500).json({
+      message: e.message || 'Request Failed',
+    });
+  }
+}
+
 async function handleAddWallet(req: Request, res: Response) {
   try {
     const user = await addWallet(req.body);
@@ -90,6 +105,7 @@ userRouter.post('/signUp', signUpValidator, handleSignUp);
 userRouter.post('/checkUser', handleCheckUser);
 userRouter.post('/createGroup', GroupInfoValidator, handleCreateGroup);
 userRouter.get('/fetchUsers', handleFetchUsers);
+userRouter.get('/fetchGroups', handleFetchGroups);
 userRouter.post('/addWallet', AddWalletValidator, handleAddWallet);
 
 export default userRouter;

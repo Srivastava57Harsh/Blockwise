@@ -37,7 +37,25 @@ export async function createUser(user: User): Promise<any> {
 
 export async function checkUser(address: string): Promise<any> {
   console.log(address);
-  const userExists = await (await database()).collection('users').findOne({ walletAddress: address });
+  // const userExists = await (await database()).collection('users').findOne({
+  //   wallets: {
+  //     $exists: true,
+  //     $elemMatch: { $eq: address },
+  //   },
+  // });\
+
+  // Extract all existing wallet addresses from the database
+  const existingWallets = await (
+    await database()
+  )
+    .collection('users')
+    .find({}, { projection: { wallets: 1, _id: 0 } })
+    .toArray();
+
+  const allWalletAddresses = [].concat(...existingWallets.map(user => Object.values(user.wallets)));
+
+  // Check if the new wallet address is in the array
+  const userExists = allWalletAddresses.includes(address);
   if (userExists) {
     return {
       bool: true,
@@ -102,6 +120,21 @@ export async function fetchUsers() {
   try {
     const projection = { wallets: 1, username: 1, phone: 1, uid: 1, id: 1 };
     const user = await (await database()).collection('users').find({}, { projection }).toArray();
+    console.log(user);
+    return user;
+  } catch (e) {
+    LoggerInstance.error(e);
+    throw {
+      message: 'Unauthorized Access',
+      status: 401,
+    };
+  }
+}
+
+export async function fetchGroups() {
+  try {
+    const projection = { groupName: 1, members: 1 };
+    const user = await (await database()).collection('groups').find({}, { projection }).toArray();
     console.log(user);
     return user;
   } catch (e) {
