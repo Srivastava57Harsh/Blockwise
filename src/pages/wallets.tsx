@@ -1,5 +1,7 @@
 import { CiWallet } from "react-icons/ci";
 
+
+
 export default function Wallets() {
   return (
     <div className=" mt-32 w-[90%] md:w-4/5 mx-auto h-[calc(100vh-72px)] space-y-3">

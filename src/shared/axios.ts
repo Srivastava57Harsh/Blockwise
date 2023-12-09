@@ -1,117 +1,30 @@
-import axios from 'axios';
-import { API_URL } from '../../config';
-import { CourseSchema, LoginUser, SignUpData } from '../models';
-import { sendToast } from './toastify';
+import axios from "axios";
+import { CreateContact } from "../models";
+import Cors from "cors";
+
+const cors = Cors({
+  methods: ["POST"],
+});
+
+// Authentication credentials
+const username = "rzp_test_0p4mTs3uyc7xCw";
+const password = "VF3whITyzr6HR1gPd3SDHgJL";
+
+const base64Credentials = btoa(`${username}:${password}`);
+
+const axiosInstance = axios.create({
+  baseURL: "https://api.razorpay.com/v1",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Basic ${base64Credentials}`,
+  },
+});
 
 //Authentication
-export const handleSignUpUser = async (userData: SignUpData) => {
+export const createContactRazorpayx = async (payload: CreateContact) => {
   try {
-    const res = await axios.post(`${API_URL}/auth/signUp`, userData);
+    const res = await axiosInstance.post("/contacts", payload);
     return res.data;
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const handleLoginUser = async (userData: LoginUser) => {
-  try {
-    const res = await axios.post(`${API_URL}/auth/login`, userData);
-    return res.data;
-  } catch (err: any) {
-    throw err;
-  }
-};
-
-export const fetchUser = async (token: string | boolean) => {
-  try {
-    token = 'Bearer ' + token;
-    const res = await axios.get(`${API_URL}/auth/getProfile`, {
-      headers: { authorization: token },
-    });
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
-};
-
-
-
-
-
-
-
-
-
-
-export const handleRazorpay = async (courseid: string, token: any) => {
-  try {
-    token = 'Bearer ' + token;
-    const res = await axios({
-      method: 'post',
-      url: `${API_URL}/razorpay/createOrder`,
-      data: { courseId: courseid },
-      headers: { authorization: token },
-    });
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const getOwnedCourses = async (token: string | boolean) => {
-  try {
-    const user = await fetchUser(token);
-    const res = await axios.post(`${API_URL}/dashboard/user/courses`, { email: user.data.email });
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
-};
-//ADMIN
-export const handleLoginAdmin = async (userData: LoginUser) => {
-  try {
-    const res = await axios.post(`${API_URL}/admin/login`, userData);
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const fetchAdmin = async (token: any) => {
-  try {
-    token = 'Bearer ' + token;
-    const res = await axios.get(`${API_URL}/admin/getAdmin`, {
-      headers: { authorization: token },
-    });
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const handleAdminLogout = async (email: string) => {
-  try {
-    const res = await axios.post(`${API_URL}/admin/logout`, { email: email });
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const addCourse = async (data: CourseSchema) => {
-  try {
-    const res = await axios.post(`${API_URL}/admin/addCourse`, data);
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
-};
-
-//Razorpay
-export const checkRazorpayPayment = async (order_id: string) => {
-  try {
-    const res = await axios.post(`${API_URL}/razorpay/checkStatus`, { order_id: order_id });
-    return res;
   } catch (err) {
     throw err;
   }

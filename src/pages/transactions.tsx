@@ -1,5 +1,4 @@
-// pages/index.js or any other Next.js component
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Home() {
   const [walletAddress, setWalletAddress] = useState("");

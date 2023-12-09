@@ -37,7 +37,6 @@ export default function ChatPage() {
                   </span>
                 </div>
               </li>
-
               <li className="flex justify-start">
                 <div className="relative max-w-xl rounded bg-gray-100 px-4 py-2 text-gray-700 shadow">
                   <span className="block">
