@@ -113,6 +113,21 @@ export async function fetchUsers() {
   }
 }
 
+export async function fetchGroups() {
+  try {
+    const projection = { groupName: 1, members: 1 };
+    const user = await (await database()).collection('groups').find({}, { projection }).toArray();
+    console.log(user);
+    return user;
+  } catch (e) {
+    LoggerInstance.error(e);
+    throw {
+      message: 'Unauthorized Access',
+      status: 401,
+    };
+  }
+}
+
 export async function addWallet(walletPayload: NewWalletPayload) {
   try {
     const phone = walletPayload.phone;
