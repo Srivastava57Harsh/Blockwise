@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "./Modal";
+import GroupModal from "./GroupModal";
 
 export default function Sidebar() {
   return (
@@ -10,7 +10,7 @@ export default function Sidebar() {
             Chats
           </h2>
           <div>
-            <Modal />
+            <GroupModal />
           </div>
         </div>
         <li>
