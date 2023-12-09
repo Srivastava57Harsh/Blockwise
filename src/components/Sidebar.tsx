@@ -16,7 +16,9 @@ export default function Sidebar({ onSelectGroup }: any) {
 
   const fetchGroupsFromBackend = async () => {
     try {
-      const response = await fetch("https://0fa9-14-195-9-98.ngrok-free.app/api/user/fetchGroups"); // Adjust the API endpoint based on your server setup
+      const response = await fetch(
+        "https://0fa9-14-195-9-98.ngrok-free.app/api/user/fetchGroups"
+      ); // Adjust the API endpoint based on your server setup
       const data = await response.json();
 
       if (response.ok) {
@@ -44,60 +46,33 @@ export default function Sidebar({ onSelectGroup }: any) {
             <GroupModal />
           </div>
         </div>
-        <li>
-          <a
-            className={`flex cursor-pointer items-center border-b border-gray-300 hover:bg-gray-100 px-3 py-2 text-sm transition duration-150 ease-in-out ${
-              selectedGroup === "Group 1" ? "bg-gray-100" : ""
-            }`}
-            onClick={() => handleGroupSelection("Group 1")}
-          >
-            {/* Your group information */}
-            <img
-              className="h-10 w-10 rounded-full object-cover"
-              src="https://cdn.pixabay.com/photo/2018/09/12/12/14/man-3672010__340.jpg"
-              alt="username"
-            />
-            <div className="w-full pb-2">
-              <div className="flex justify-between">
-                <span className="ml-2 block font-semibold text-gray-600">
-                  Group 1
-                </span>
-                <span className="ml-2 block text-sm text-gray-600">
-                  25 minutes
-                </span>
+        {groups.map((group) => (
+          <li key={group._id}>
+            <a
+              className={`flex cursor-pointer items-center border-b border-gray-300 hover:bg-gray-100 px-3 py-2 text-sm transition duration-150 ease-in-out ${
+                selectedGroup === group._id ? "bg-gray-100" : ""
+              }`}
+              onClick={() => handleGroupSelection(group._id)}
+            >
+              {/* Your group information */}
+              <img
+                className="h-10 w-10 rounded-full object-cover"
+                src="https://cdn.pixabay.com/photo/2018/09/12/12/14/man-3672010__340.jpg"
+                alt="username"
+              />
+              <div className="w-full pb-2">
+                <div className="flex justify-between">
+                  <span className="ml-2 block font-semibold text-gray-600">
+                    {group.groupName}
+                  </span>
+                  <span className="ml-2 block text-sm text-gray-600">
+                    25 minutes
+                  </span>
+                </div>
               </div>
-              <span className="ml-2 block text-sm text-gray-600">Hi</span>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a
-            className={`flex cursor-pointer items-center border-b border-gray-300 hover:bg-gray-100 px-3 py-2 text-sm transition duration-150 ease-in-out ${
-              selectedGroup === "Group 2" ? "bg-gray-100" : ""
-            }`}
-            onClick={() => handleGroupSelection("Group 2")}
-          >
-            {/* Your group information */}
-            <img
-              className="h-10 w-10 rounded-full object-cover"
-              src="https://upload.wikimedia.org/wikipedia/en/b/b9/Solana_logo.png"
-              alt="username"
-            />
-            <div className="w-full pb-2">
-              <div className="flex justify-between">
-                <span className="ml-2 block font-semibold text-gray-600">
-                  Group 2
-                </span>
-                <span className="ml-2 block text-sm text-gray-600">
-                  50 minutes
-                </span>
-              </div>
-              <span className="ml-2 block text-sm text-gray-600">
-                Awesome Project
-              </span>
-            </div>
-          </a>
-        </li>
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
   );
