@@ -1,7 +1,52 @@
 import { Navbar } from "@/components/Navbar";
 import { CiWallet } from "react-icons/ci";
+import { useState } from 'react';
 
 export default function Wallets() {
+  const [walletAddress, setWalletAddress] = useState('');
+  const [walletName, setWalletName] = useState('');
+
+  const handleAddWallet = async (event) => {
+    event.preventDefault();
+  
+    try {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+      if (!currentUser || !currentUser.phone) {
+        console.error('Phone number not found in localStorage.');
+        // Handle the absence of phone number as needed
+        return;
+      }
+  
+      const response = await fetch('https://0fa9-14-195-9-98.ngrok-free.app/api/user/addWallet', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          walletAddress,
+          walletName,
+          phone: currentUser.phone,  // Include the phone number in the payload
+          // Add any other required payload fields here
+        }),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Wallet added successfully:', data);
+        // Add logic to update your UI or state as needed
+      } else {
+        const errorData = await response.json();
+        console.error('Error adding wallet:', errorData);
+        // Handle the error and update UI accordingly
+      }
+    } catch (error) {
+      console.error('Error adding wallet:', error);
+      // Handle the error and update UI accordingly
+    }
+  };
+  
+
   return (
     <div className=" mt-32 w-[90%] md:w-4/5 mx-auto h-[calc(100vh-72px)] space-y-3">
       <Navbar />
@@ -17,7 +62,7 @@ export default function Wallets() {
             </p>
 
             <form
-              action=""
+              onSubmit={handleAddWallet}
               className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-white"
             >
               <div>
@@ -28,7 +73,9 @@ export default function Wallets() {
                 <div className="relative">
                   <input
                     type="text"
-                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm "
+                    value={walletAddress}
+                    onChange={(e) => setWalletAddress(e.target.value)}
+                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                     placeholder="Enter your wallet Address"
                   />
                 </div>
@@ -42,6 +89,8 @@ export default function Wallets() {
                 <div className="relative">
                   <input
                     type="text"
+                    value={walletName}
+                    onChange={(e) => setWalletName(e.target.value)}
                     className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                     placeholder="Lending Wallet"
                   />
