@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { useState } from "react";
+import { ethers } from "ethers";
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useContractRead,
+} from "wagmi";
+import ContractABI from "../../artifacts/contracts/SplitExpense.sol/SplitExpense.json";
 
 interface Person {
   name: string;
@@ -8,7 +15,12 @@ interface Person {
 }
 export default function Modal() {
   const [persons, setPersons] = useState<Person[]>([]);
+  const [walletAddresses, setWalletAddresses] = useState<string[]>([]);
   const [showModal, setShowModal] = React.useState(false);
+  const [groupName, setGroupName] = useState("");
+  const [splitAmount, setSplitAmount] = useState("");
+  const [amountInWei, setAmountInWei] = useState("");
+
 
   const [newPerson, setNewPerson] = useState({
     name: "",
@@ -33,6 +45,7 @@ export default function Modal() {
     e.preventDefault();
     if (newPerson.name && newPerson.walletAddress) {
       setPersons([...persons, newPerson]);
+      setWalletAddresses([...walletAddresses, newPerson.walletAddress]); 
       setNewPerson({
         name: "",
         walletAddress: "",
@@ -40,6 +53,36 @@ export default function Modal() {
     }
   };
 
+  const handleSplitAmountChange = (e: any) => {
+    setSplitAmount(e.target.value);
+  };
+
+  useEffect(() => {
+    if (splitAmount.trim() !== "") {
+      const wei = ethers.parseEther(splitAmount.toString());
+      setAmountInWei(wei);
+    }
+  }, [splitAmount]);
+  
+
+  const { config } = usePrepareContractWrite({
+    address: "0xf3Ca255e5b8d726c5a8A38689e4C44b1Bb372c5B",
+    abi: ContractABI.abi,
+    functionName: "splitExpense",
+    args: [walletAddresses, groupName, amountInWei],
+    value: ethers.parseEther("0"),
+    onError(error: any) {
+      console.log("Error", error);
+    },
+  })
+
+  const { data, isLoading, isSuccess, write } = useContractWrite(config)
+
+  const splitExpense = () => {
+    console.log("Button was clicked!");
+    write?.();
+  }
+  
   return (
     <>
       <button
@@ -80,16 +123,27 @@ export default function Modal() {
                         <label htmlFor="groupName" className="">
                           Group Name
                         </label>
-
                         <div className="relative">
                           <input
                             type="text"
                             className="w-full rounded-lg bg-gray-200 p-4 pe-12 text-sm shadow-sm"
                             placeholder="ETH India after party"
+                            value={groupName}
+                            onChange={(e) => setGroupName(e.target.value)}
                           />
                         </div>
                       </div>
 
+                        <div className="relative">
+                          <input
+                            type="number"
+                            className="w-full rounded-lg bg-gray-200 p-4 pe-12 text-sm shadow-sm"
+                            placeholder="1 ETH"
+                            value={splitAmount}
+                            onChange={handleSplitAmountChange}
+                          />
+                        </div>
+                      </div>
                       <div className="space-y-2">
                         <label htmlFor="memberName" className="">
                           Bearer Name
@@ -156,6 +210,7 @@ export default function Modal() {
                   <button
                     className="bg-[#79D17F] text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
+                    onClick={splitExpense}
                   >
                     Create Group
                   </button>

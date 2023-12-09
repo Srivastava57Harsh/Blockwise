@@ -25,59 +25,74 @@ export default function ChatPage({ selectedGroup }: ChatPageProps) {
   const contractAddress = "0x02285dA4A30884e7100B7F1C6Fa8cA8c7Bfa5690";
   const contract = new ethers.Contract(contractAddress, ContractABI.abi);
 
-  // const { config } = usePrepareContractWrite({
-  //   address: "0xD9b259dAD40C3Ba608379c3184AE2c71321881Fd",
-  //   abi: ContractABI.abi,
-  //   functionName: "splitExpense",
-  //   args: [walletAddresses, amountInWei],
-  //   value: ethers.parseEther("0"),
-  //   onError(error: any) {
-  //     console.log("Error", error);
-  //   },
-  // })
+  const groupName = "Group A";
 
-  // const { data, isLoading, isSuccess, write } = useContractWrite(config)
+  const { config } = usePrepareContractWrite({
+    address: "0xf3Ca255e5b8d726c5a8A38689e4C44b1Bb372c5B",
+    abi: ContractABI.abi,
+    functionName: "splitExpense",
+    args: [walletAddresses, groupName, amountInWei],
+    value: ethers.parseEther("0"),
+    onError(error: any) {
+      console.log("Error", error);
+    },
+  })
+
+  const { data, isLoading, isSuccess, write } = useContractWrite(config)
 
   const splitExpense = () => {
     console.log("Button was clicked!");
-    // write?.();
-  };
+    write?.();
+  }
 
   function convertToObjects(array) {
     const result = {};
-
-    const addresses = array[0];
-    const shares = array[1];
-
-    for (let i = 0; i < addresses.length; i++) {
-      const walletAddress = addresses[i];
-      const share = shares[i];
-
-      result[walletAddress] = share;
+  
+    // Check if the array is defined and has the expected structure
+    if (Array.isArray(array) && array.length === 2) {
+      const addresses = array[0];
+      const shares = array[1];
+  
+      // Check if addresses and shares are both arrays
+      if (Array.isArray(addresses) && Array.isArray(shares) && addresses.length === shares.length) {
+        for (let i = 0; i < addresses.length; i++) {
+          const walletAddress = addresses[i];
+          const share = shares[i];
+  
+          result[walletAddress] = share;
+        }
+  
+        console.log(result);
+      } else {
+        console.error("Invalid data structure: addresses and shares should be arrays of the same length");
+      }
+    } else {
+      console.error("Invalid data structure: array should be an array with two elements");
     }
-
-    console.log(result);
+  
     return result;
   }
+  
 
-  // Inside your component...
-  const { data, isError, isLoading } = useContractRead({
-    address: "0xD9b259dAD40C3Ba608379c3184AE2c71321881Fd",
-    abi: ContractABI.abi,
-    functionName: "getShares",
-  });
+  // // Inside your component...
+  // const { data, isError, isLoading } = useContractRead({
+  //   address: "0xf3Ca255e5b8d726c5a8A38689e4C44b1Bb372c5B",
+  //   abi: ContractABI.abi,
+  //   functionName: "getGroupShares",
+  //   args: ['Group A']
+  // });
 
-  useEffect(() => {
-    if (isError) {
-      console.error("Error reading contract:", isError);
-    }
+  // useEffect(() => {
+  //   if (isError) {
+  //     console.error("Error reading contract:", isError);
+  //   }
 
-    if (data) {
-      setShares(data);
-      console.log(shares);
-      convertToObjects(shares);
-    }
-  }, [data, isError, shares]);
+  //   if (data) {
+  //     setShares(data);
+  //     console.log(shares);
+  //     convertToObjects(shares);
+  //   }
+  // }, [data, isError, shares]);
 
   return (
     <div className="hidden lg:col-span-2 lg:block">

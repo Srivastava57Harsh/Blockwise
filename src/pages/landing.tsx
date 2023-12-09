@@ -1,22 +1,65 @@
 import { GiSplitCross } from "react-icons/gi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useAccount } from "wagmi"
 import Link from "next/link";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export default function Landing() {
+  const {address, isConnected} = useAccount();
+  const [userExists, setUserExists] = useState(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    // Function to send the API request
+    const checkUserOnBackend = async () => {
+      try {
+        const response = await fetch('https://0fa9-14-195-9-98.ngrok-free.app/api/user/checkUser', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ walletAddress: address }),
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          setUserExists(result.flag); // Assuming flag is a boolean indicating user existence
+
+          if (result.flag) {
+            router.push('/dashboard');
+          } else {
+            router.push('/register');
+          }
+        } else {
+          console.error('Failed to check user on the backend');
+        }
+      } catch (error) {
+        console.error('Error while checking user on the backend', error);
+      }
+    };
+
+    // Check user on the backend if the wallet is connected
+    if (isConnected) {
+      checkUserOnBackend();
+    }
+  }, [address, isConnected]);
+
   return (
     <div className="bg-white pb-6 sm:pb-8 lg:pb-12">
       <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
         <header className="mb-4 flex items-center justify-between py-4 md:py-8">
-          <a
+          <Link
             href="/"
             className="inline-flex items-center gap-2.5 text-2xl font-bold text-black md:text-3xl"
             aria-label="logo"
           >
             <GiSplitCross className="w-14 h-14 text-black" />
             Blockwise
-          </a>
+          </Link>
 
           <div className="flex items-center space-x-3">
+            <ConnectButton />
             <Link
               href="/register"
               className="hidden rounded-lg bg-gray-200 px-8 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:inline-block"
