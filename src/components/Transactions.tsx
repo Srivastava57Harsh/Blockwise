@@ -9,20 +9,28 @@ export const Transactions = () => {
   // const chainName = chain.name;
 
   useEffect(() => {
+    console.log("HEY", chain);
     const fetchTransactions = async () => {
       try {
         if (!isConnecting && !isDisconnected && address) {
-          const response = await fetch("/api/moralis/transactions", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "wallet-address": address,
-              chain: "chainName",
-            },
-          });
+          console.log("kevin");
+          const response = await fetch(
+            "https://0fa9-14-195-9-98.ngrok-free.app/api/moralis/transactions",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                "wallet-address": address,
+                chain: "80001",
+              },
+            }
+          );
+
+          console.log("kevin", response);
 
           if (response.ok) {
             const data = await response.json();
+            console.log("kevin", data); // Log the actual data payload
             setTransactions(data);
           } else {
             console.error("Failed to fetch transactions");
@@ -34,7 +42,7 @@ export const Transactions = () => {
     };
 
     fetchTransactions();
-  }, [address, isConnecting, isDisconnected]);
+  }, [address, isConnecting, isDisconnected, chain]);
 
   return (
     <section className="py-1 bg-blueGray-50">

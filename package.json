@@ -11,6 +11,7 @@
   "dependencies": {
     "@dicebear/collection": "^6.0.4",
     "@dicebear/core": "^6.0.4",
+    "@metamask/providers": "^14.0.2",
     "@moralisweb3/common-evm-utils": "^2.23.2",
     "@moralisweb3/next": "^2.23.2",
     "@nomiclabs/hardhat-etherscan": "^3.1.8",
