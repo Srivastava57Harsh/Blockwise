@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 contract SplitExpense {
     address public owner;
-    uint256 public totalExpense;
     mapping(address => uint256) public shares;
     mapping(address => bool) public paymentSettled;
 
@@ -22,24 +21,16 @@ contract SplitExpense {
         owner = msg.sender;
     }
 
-    // Function to set the total expense
-    function setExpense(uint256 _totalExpense) external {
-        // Allow any wallet to call this function
-        totalExpense = _totalExpense;
-
-        // Emit event for expense creation
-        emit ExpenseCreated(msg.sender, _totalExpense);
-    }
-
     // Function to split the expense among friends in a group
-    function splitExpense(address[] calldata _friends, string memory _groupName) external {
+    function splitExpense(address[] calldata _friends, string memory _groupName, uint256 _totalExpense) external {
         uint256 numberOfFriends = _friends.length;
         require(numberOfFriends > 0, "At least one friend is required");
+        require(_totalExpense > 0, "Total expense must be greater than zero");
 
         // Set the friends array
         friends = _friends;
 
-        uint256 sharePerFriend = totalExpense / numberOfFriends;
+        uint256 sharePerFriend = _totalExpense / numberOfFriends;
 
         for (uint256 i = 0; i < numberOfFriends; i++) {
             shares[_friends[i]] = sharePerFriend;
@@ -48,8 +39,9 @@ contract SplitExpense {
         }
 
         // Emit event for expense splitting
-        emit ExpenseSplit(msg.sender, totalExpense, _groupName);
+        emit ExpenseSplit(msg.sender, _totalExpense, _groupName);
     }
+
 
     // Function to calculate individual payment
     function calculatePayment() external view returns (uint256) {
