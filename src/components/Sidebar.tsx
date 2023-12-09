@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GroupModal from "./GroupModal";
 
 interface SidebarProps {
@@ -6,10 +6,32 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ onSelectGroup }: any) {
+  const [groups, setGroups] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState(null);
 
+  useEffect(() => {
+    // Fetch groups when the component mounts
+    fetchGroupsFromBackend();
+  }, []);
+
+  const fetchGroupsFromBackend = async () => {
+    try {
+      const response = await fetch("https://0fa9-14-195-9-98.ngrok-free.app/api/user/fetchGroups"); // Adjust the API endpoint based on your server setup
+      const data = await response.json();
+
+      if (response.ok) {
+        setGroups(data.data);
+      } else {
+        console.error("Failed to fetch groups:", data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching groups:", error.message);
+    }
+  };
+
   const handleGroupSelection = (groupName: string) => {
-    onSelectGroup(groupName); // Call the onSelectGroup function when a group is selected
+    setSelectedGroup(groupName);
+    onSelectGroup(groupName);
   };
   return (
     <div className="border-r border-gray-300 lg:col-span-1">

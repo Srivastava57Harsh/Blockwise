@@ -52,6 +52,12 @@ export default function Modal() {
     setSplitAmount(e.target.value);
   };
 
+  const closeModal = () => {
+    setShowModal(false);
+    setPersons(null);
+    setGroupName("");
+  }
+
   useEffect(() => {
     if (splitAmount.trim() !== "") {
       const wei = ethers.parseEther(splitAmount.toString());
@@ -76,6 +82,36 @@ export default function Modal() {
     console.log("Button was clicked!");
     write?.();
   };
+
+  const createGroup = async () => {
+
+
+    try {
+      const response = await fetch("https://0fa9-14-195-9-98.ngrok-free.app/api/user/createGroup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          groupName,
+          users: persons.map((person) => person.name),
+        }),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Group created successfully:", data);
+        // Do additional actions if needed
+      } else {
+        console.error("Failed to create group:", response.statusText);
+        // Handle error appropriately
+      }
+    } catch (error) {
+      console.error("Error creating group:", error);
+      // Handle error appropriately
+    }
+  };
+
 
   return (
     <>
@@ -126,18 +162,6 @@ export default function Modal() {
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <label htmlFor="splitAmount">Split Amount</label>
-                        <div className="relative">
-                          <input
-                            type="number"
-                            className="w-full rounded-lg bg-gray-200 p-4 pe-12 text-sm shadow-sm"
-                            placeholder="1 ETH"
-                            value={splitAmount}
-                            onChange={handleSplitAmountChange}
-                          />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
                         <label htmlFor="memberName">Bearer Name</label>
                         <div className="relative text-black">
                           <input
@@ -174,7 +198,7 @@ export default function Modal() {
                           List of Persons added
                         </h2>
                         <ul>
-                          {persons.map((person, index) => (
+                          {persons != null && persons.map((person, index) => (
                             <li key={index}>
                               Name: {person.name} -- Wallet Address:{" "}
                               {person.walletAddress}
@@ -191,14 +215,14 @@ export default function Modal() {
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={closeModal}
                   >
                     Cancel
                   </button>
                   <button
                     className="bg-[#79D17F] text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={splitExpense}
+                    onClick={createGroup}
                   >
                     Create Group
                   </button>
