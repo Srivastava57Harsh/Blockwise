@@ -90,7 +90,7 @@ export default function Modal() {
         type="button"
         onClick={() => setShowModal(true)}
       >
-        Create Split
+        Create Group
       </button>
       {showModal ? (
         <>
@@ -133,10 +133,6 @@ export default function Modal() {
                           />
                         </div>
                       </div>
-                      <div className="space-y-2">
-                        <label htmlFor="splitAmount" className="">
-                          Split amount (ETH)
-                        </label>
 
                         <div className="relative">
                           <input
@@ -216,7 +212,7 @@ export default function Modal() {
                     type="button"
                     onClick={splitExpense}
                   >
-                    Create Split
+                    Create Group
                   </button>
                 </div>
               </div>
