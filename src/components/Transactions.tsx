@@ -1,6 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useAccount, useNetwork } from 'wagmi';
 
 export const Transactions = () => {
+  const { address, isConnecting, isDisconnected } = useAccount();
+  const { chain, chains } = useNetwork();
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        if (!isConnecting && !isDisconnected && address) {
+          const response = await fetch("/api/moralis/transactions", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Wallet-Address": address,
+              "Chain-Id": chain.name,
+            },
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            setTransactions(data);
+          } else {
+            console.error("Failed to fetch transactions");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching transactions:", error);
+      }
+    };
+
+    fetchTransactions();
+  }, [address, chain.name, isConnecting, isDisconnected]);
+
   return (
     <section className="py-1 bg-blueGray-50">
       <div className="w-full   px-4 mx-auto mt-5">
