@@ -47,7 +47,7 @@ export default function Modal() {
         type="button"
         onClick={() => setShowModal(true)}
       >
-        Create Split
+        Create Group
       </button>
       {showModal ? (
         <>
@@ -89,19 +89,7 @@ export default function Modal() {
                           />
                         </div>
                       </div>
-                      <div className="space-y-2">
-                        <label htmlFor="splitAmount" className="">
-                          Split amount (ETH)
-                        </label>
 
-                        <div className="relative">
-                          <input
-                            type="number"
-                            className="w-full rounded-lg bg-gray-200 p-4 pe-12 text-sm shadow-sm"
-                            placeholder="1 ETH"
-                          />
-                        </div>
-                      </div>
                       <div className="space-y-2">
                         <label htmlFor="memberName" className="">
                           Bearer Name
@@ -169,7 +157,7 @@ export default function Modal() {
                     className="bg-[#79D17F] text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                   >
-                    Create Split
+                    Create Group
                   </button>
                 </div>
               </div>
