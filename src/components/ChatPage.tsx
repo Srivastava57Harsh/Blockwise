@@ -42,9 +42,9 @@ export default function ChatPage() {
               </div>
             </li>
             <li className="flex justify-start">
-              <div className="relative max-w-xl rounded bg-gray-100 px-4 py-2 text-gray-700 shadow">
+              <div className="relative max-w-xl rounded-lg bg-gray-100 px-4  text-gray-700 shadow py-4">
                 <span className="block">
-                  <div className="relative flex flex-col  text-gray-700 bg-white shadow-md bg-clip-border w-96 rounded-lg">
+                  <div className="relative flex flex-col  text-gray-700 bg-white shadow-md bg-clip-border w-96 rounded-lg p-3">
                     <div className="p-6 ">
                       <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                         Rs.2,520
@@ -55,7 +55,7 @@ export default function ChatPage() {
                     </div>
                     <div className="p-6 pt-0">
                       <button
-                        className="rounded-none align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6  bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+                        className="rounded-lg align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6  bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
                         type="button"
                       >
                         Settle the expense
