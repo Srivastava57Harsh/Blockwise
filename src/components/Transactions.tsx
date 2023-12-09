@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAccount, useNetwork } from "wagmi";
+import Web3 from "web3"; // Import Web3.js library
 
 export const Transactions = () => {
   const { address, isConnecting, isDisconnected } = useAccount();
@@ -31,7 +32,7 @@ export const Transactions = () => {
           if (response.ok) {
             const data = await response.json();
             console.log("kevin", data); // Log the actual data payload
-            setTransactions(data);
+            setTransactions(data.result);
           } else {
             console.error("Failed to fetch transactions");
           }
@@ -63,7 +64,10 @@ export const Transactions = () => {
               <thead>
                 <tr>
                   <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold font-mono text-left">
-                    Wallet Name
+                    From Address
+                  </th>
+                  <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold font-mono text-left">
+                    To Address
                   </th>
                   <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left font-mono">
                     Amount
@@ -72,54 +76,31 @@ export const Transactions = () => {
               </thead>
 
               <tbody>
-                <tr className="hover:bg-gray-200">
+                {transactions.map((transaction, index) =>
+                  transaction.to_address &&
+                  transaction.value !== null &&
+                  transaction.value !== "0" ? (
+                    <tr key={index} className="hover:bg-gray-200">
+                      <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
+                        {transaction.from_address}
+                      </th>
+                      <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
+                        {transaction.to_address}
+                      </th>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {Web3.utils.fromWei(transaction.value, "ether")} ETH
+                      </td>
+                    </tr>
+                  ) : null
+                )}
+                {/* <tr className="hover:bg-gray-200">
                   <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700  ">
                     Saving Wallet
                   </th>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
                     1 ETH
                   </td>
-                </tr>
-                <tr className="hover:bg-gray-200">
-                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-                    Saving Wallet
-                  </th>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                    1 ETH
-                  </td>
-                </tr>
-                <tr className="hover:bg-gray-200">
-                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-                    Saving Wallet
-                  </th>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                    1 ETH
-                  </td>
-                </tr>
-                <tr className="hover:bg-gray-200">
-                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-                    Saving Wallet
-                  </th>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                    1 ETH
-                  </td>
-                </tr>
-                <tr className="hover:bg-gray-200">
-                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-                    Saving Wallet
-                  </th>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                    1 ETH
-                  </td>
-                </tr>
-                <tr className="hover:bg-gray-200">
-                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-                    Saving Wallet
-                  </th>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                    1 ETH
-                  </td>
-                </tr>
+                </tr> */}
               </tbody>
             </table>
           </div>
