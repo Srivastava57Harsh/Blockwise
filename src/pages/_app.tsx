@@ -1,6 +1,11 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import "@rainbow-me/rainbowkit/styles.css";
+// import { useAccount, useSigner } from "wagmi";
+
+// import * as PushAPI from "@pushprotocol/restapi";
+import { ethers } from "ethers";
+
 import {
   getDefaultWallets,
   RainbowKitProvider,
@@ -17,10 +22,47 @@ import {
   handleCreateFunds,
   handleCreatePayout,
 } from "@/services/handleRazorpay";
-import { useEffect } from "react";
-import { useAccount } from "wagmi";
+import { useEffect, useState } from "react";
+
+const signer = ethers.Wallet.createRandom();
 
 export default function App({ Component, pageProps }: AppProps) {
+  // const { address } = useAccount();
+  // const { data: signer } = useSigner();
+  // const [notifs, setNotifs] = useState([]);
+  //PUSH NOTIFICATION INTEGRATION
+
+  // const turnonNotifs = async () => {
+  //   await PushAPI.channels.subscribe({
+  //     signer: signer,
+  //     channelAddress: "eip155:5:0xEdEFD55a9674550669Bdfe304f8d5c725b0817dF", // channel address in CAIP
+  //     userAddress: `eip155:5:${address}`, // user address in CAIP
+  //     onSuccess: () => {
+  //       // console('opt in success');
+  //     },
+  //     onError: () => {
+  //       console.error("opt in error");
+  //     },
+  //     //@ts-ignore
+  //     env: "staging",
+  //   });
+  // };
+
+  // const getNotifs = async () => {
+  //   const notifications = await PushAPI.user.getFeeds({
+  //     user: `eip155:5:${address}`, // user address in CAIP
+  //     //@ts-ignore
+  //     env: "staging",
+  //   });
+
+  //   setNotifs(notifications);
+  //   // console(notifications);
+  // };
+
+  // useEffect(() => {
+  //   getNotifs();
+  // }, [address]);
+
   //RAZORPAY TESTING API CODE
 
   // useEffect(() => {
