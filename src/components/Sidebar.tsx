@@ -1,3 +1,6 @@
+import { useState } from "react";
+import Modal from "./Modal";
+
 export default function Sidebar() {
   return (
     <div className="border-r border-gray-300 lg:col-span-1">
@@ -7,9 +10,7 @@ export default function Sidebar() {
             Chats
           </h2>
           <div>
-            <button className="p-3 rounded-lg bg-[#79D17F] m-3 font-mono">
-              Create group
-            </button>
+            <Modal />
           </div>
         </div>
         <li>
