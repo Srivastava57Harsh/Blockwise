@@ -1,7 +1,16 @@
 import { useState } from "react";
 import GroupModal from "./GroupModal";
 
-export default function Sidebar() {
+interface SidebarProps {
+  onSelectGroup: (group: string) => void; // Prop to handle group selection
+}
+
+export default function Sidebar({ onSelectGroup }: any) {
+  const [selectedGroup, setSelectedGroup] = useState(null);
+
+  const handleGroupSelection = (groupName: string) => {
+    onSelectGroup(groupName); // Call the onSelectGroup function when a group is selected
+  };
   return (
     <div className="border-r border-gray-300 lg:col-span-1">
       <ul className="h-[32rem] overflow-auto">
@@ -14,7 +23,13 @@ export default function Sidebar() {
           </div>
         </div>
         <li>
-          <a className="flex cursor-pointer items-center border-b border-gray-300 px-3 py-2 text-sm transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none">
+          <a
+            className={`flex cursor-pointer items-center border-b border-gray-300 hover:bg-gray-100 px-3 py-2 text-sm transition duration-150 ease-in-out ${
+              selectedGroup === "Group 1" ? "bg-gray-100" : ""
+            }`}
+            onClick={() => handleGroupSelection("Group 1")}
+          >
+            {/* Your group information */}
             <img
               className="h-10 w-10 rounded-full object-cover"
               src="https://cdn.pixabay.com/photo/2018/09/12/12/14/man-3672010__340.jpg"
@@ -23,7 +38,7 @@ export default function Sidebar() {
             <div className="w-full pb-2">
               <div className="flex justify-between">
                 <span className="ml-2 block font-semibold text-gray-600">
-                  Anatoly
+                  Group 1
                 </span>
                 <span className="ml-2 block text-sm text-gray-600">
                   25 minutes
@@ -32,7 +47,15 @@ export default function Sidebar() {
               <span className="ml-2 block text-sm text-gray-600">Hi</span>
             </div>
           </a>
-          <a className="flex cursor-pointer items-center border-b border-gray-300 bg-gray-100 px-3 py-2 text-sm transition duration-150 ease-in-out focus:outline-none">
+        </li>
+        <li>
+          <a
+            className={`flex cursor-pointer items-center border-b border-gray-300 hover:bg-gray-100 px-3 py-2 text-sm transition duration-150 ease-in-out ${
+              selectedGroup === "Group 2" ? "bg-gray-100" : ""
+            }`}
+            onClick={() => handleGroupSelection("Group 2")}
+          >
+            {/* Your group information */}
             <img
               className="h-10 w-10 rounded-full object-cover"
               src="https://upload.wikimedia.org/wikipedia/en/b/b9/Solana_logo.png"
@@ -41,7 +64,7 @@ export default function Sidebar() {
             <div className="w-full pb-2">
               <div className="flex justify-between">
                 <span className="ml-2 block font-semibold text-gray-600">
-                  Solana
+                  Group 2
                 </span>
                 <span className="ml-2 block text-sm text-gray-600">
                   50 minutes
