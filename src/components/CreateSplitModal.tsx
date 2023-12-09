@@ -7,9 +7,9 @@ export default function CreateSplitModal() {
 
   return (
     <>
-      <div className="flex w-full items-center justify-between border-t  p-3">
+      <div className="flex w-full items-center  border-t  p-3">
         <button
-          className="bg-[#79D17F] hover:bg-blue-700 lg-200 w-3/5 text-white font-bold py-2 px-4 rounded"
+          className="bg-[#79D17F] hover:bg-green-500 lg-200 w-3/5 text-white font-bold py-2 px-4 rounded"
           onClick={() => setShowModal(true)}
         >
           Split Expense
@@ -18,7 +18,7 @@ export default function CreateSplitModal() {
         <input
           type="text"
           placeholder="Message"
-          className="mx-3 block w-2/5 rounded-full bg-gray-100 py-2 pl-4 outline-none focus:text-gray-700"
+          className="mx-3 block w-4/5 rounded-full bg-gray-100 py-2 pl-4 outline-none focus:text-gray-700"
           name="message"
           required
         />
