@@ -141,7 +141,7 @@ export default function ChatPage() {
           <button></button>
           <button type="submit">
             <svg
-              className="h-5 w-5 origin-center rotate-90 transform text-gray-500"
+              className="h-6 w-6 origin-center rotate-90 transform text-white"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
