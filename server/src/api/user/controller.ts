@@ -82,35 +82,55 @@ export async function checkUser(address: string): Promise<any> {
 
 export async function createGroup(groupInfo: GroupInfo) {
   try {
-    console.log(groupInfo);
-    // console.log(users);
+    // console.log(groupInfo);
 
-    const query = { username: { $in: groupInfo.users } };
-    const projection = { _id: 0, username: 1, walletAddress: 1 }; // Include only necessary fields
-    const resultArray = await (await database()).collection('users').find(query).project(projection).toArray();
+    const projection = { _id: 0, username: 1, wallets: 1 };
+    const resultArray = [];
 
-    // console.log(resultArray);
+    // Check if group already exists
+    const groupExistsQuery = { groupName: groupInfo.groupName };
+    const existingGroup = await (await database()).collection('groups').findOne(groupExistsQuery);
 
-    const resultObject = {};
-    resultArray.map(user => {
-      resultObject[user.username] = user.walletAddress;
-    });
+    if (existingGroup) {
+      console.error(`Group with name "${groupInfo.groupName}" already exists!`);
+      throw {
+        message: 'Group Name Already exists',
+        status: 400,
+      };
+    } else {
+      // Loop through users and retrieve data
+      for (const username of groupInfo.users) {
+        const query = { username };
+        const userResult = await (await database()).collection('users').find(query).project(projection).toArray();
 
-    console.log(resultObject);
+        if (userResult.length > 0) {
+          resultArray.push(userResult[0]);
+        }
+      }
 
-    const payload = {
-      groupName: groupInfo.groupName,
-      members: resultObject,
-    };
+      console.log(resultArray);
 
-    console.log(payload);
+      const resultObject = {};
+      resultArray.forEach(user => {
+        resultObject[user.username] = user.wallets;
+      });
 
-    await (await database()).collection('groups').insertOne(payload);
-    return true;
+      // console.log(resultObject);
+
+      const payload = {
+        groupName: groupInfo.groupName,
+        members: resultObject,
+      };
+
+      console.log(payload);
+
+      await (await database()).collection('groups').insertOne(payload);
+      return true;
+    }
   } catch (e) {
     LoggerInstance.error(e);
     throw {
-      message: 'Unauthorized Access',
+      message: e.message,
       status: 401,
     };
   }
