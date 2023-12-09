@@ -1,4 +1,60 @@
+import { useState, useEffect } from 'react';
+import { ethers } from 'ethers';
+import { useContractWrite, usePrepareContractWrite, useContractRead} from 'wagmi'
+import ContractABI from "../../artifacts/contracts/SplitExpense.sol/SplitExpense.json"
+
 export default function ChatPage() {
+  const [walletAddresses, setWalletAddresses] = useState([
+    "0x696D8d3BDa41797e13578e85B8954C9Bc82C401a",
+    "0x05b854cD78C058e8FEC13Af7d5AfC7EbFb43C5d3",
+    "0xd2E578295312533DC9DD204eec7a2eAA50bFc3Fc"
+  ]);
+
+  const [expenseAmount, setExpenseAmount] = useState(0.01);
+  const [shares, setShares] = useState("data");
+  const amountInWei = ethers.parseEther(expenseAmount.toString());
+  const contractAddress = "0x02285dA4A30884e7100B7F1C6Fa8cA8c7Bfa5690";
+  const contract = new ethers.Contract(contractAddress, ContractABI.abi);
+
+  const { config } = usePrepareContractWrite({
+    address: "0x02285dA4A30884e7100B7F1C6Fa8cA8c7Bfa5690",
+    abi: ContractABI.abi,
+    functionName: "splitExpense",
+    args: [walletAddresses, amountInWei],    
+    value: ethers.parseEther("0"),
+    onError(error: any) {
+      console.log("Error", error);
+    },
+  })
+
+  const { data, isLoading, isSuccess, write } = useContractWrite(config)
+
+  const splitExpense = () => {
+    console.log("Button was clicked!");
+    write?.();
+  }
+
+
+  // // Inside your component...
+  // const { data, isError, isLoading } = useContractRead({
+  //   address: '0x02285dA4A30884e7100B7F1C6Fa8cA8c7Bfa5690',
+  //   abi: ContractABI.abi,
+  //   functionName: 'getShares',
+  // });
+  
+  // useEffect(() => {
+  //   if (isError) {
+  //     console.error('Error reading contract:', isError);
+  //   }
+  
+  //   if (data) {
+  //     setShares(data);
+  //     console.log(shares);
+  //   }
+  // }, [data, isError, shares]);
+  
+
+
     return (
       <div className="hidden lg:col-span-2 lg:block">
         <div className="w-full bg-200">
@@ -52,7 +108,8 @@ export default function ChatPage() {
                 <div className="p-6 pt-0">
                     <button
                     className="rounded-none align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6  bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
-                    type="button">
+                    type="button"
+                    >
                     Settle the expense
                     </button>
                 </div>
@@ -65,9 +122,9 @@ export default function ChatPage() {
   
           <div className="flex w-full items-center justify-between border-t border-gray-300 p-3">
             
-          <button className="bg-[#79D17F] hover:bg-blue-700 lg-200 w-3/5 text-white font-bold py-2 px-4 rounded">
+          <button className="bg-[#79D17F] hover:bg-blue-700 lg-200 w-3/5 text-white font-bold py-2 px-4 rounded" onClick={splitExpense}>
             Split Expense
-            </button>
+          </button>
   
             <input
               type="text"

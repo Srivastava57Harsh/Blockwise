@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract P2PTransactions {
+contract SettleExpense {
     address public owner;
 
     event FundsTransferred(address indexed sender, address indexed recipient, uint256 amount);
@@ -15,7 +15,7 @@ contract P2PTransactions {
         _;
     }
 
-    function transferFunds(address payable _recipient, uint256 _amount) external onlyOwner {
+    function settleExpense(address payable _recipient, uint256 _amount) external onlyOwner {
         require(_recipient != address(0), "Invalid recipient address");
         require(_amount > 0, "Invalid amount");
 

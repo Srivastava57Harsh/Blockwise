@@ -51,7 +51,8 @@
     "uuid": "^9.0.0",
     "uuidv4": "^6.2.13",
     "viem": "^1.19.11",
-    "wagmi": "^1.4.10"
+    "wagmi": "^1.4.10",
+    "web3": "^4.3.0"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
