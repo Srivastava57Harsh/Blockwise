@@ -24,7 +24,7 @@ export default function Sidebar({ onSelectGroup }: any) {
         </div>
         <li>
           <a
-            className={`flex cursor-pointer items-center border-b border-gray-300 px-3 py-2 text-sm transition duration-150 ease-in-out ${
+            className={`flex cursor-pointer items-center border-b border-gray-300 hover:bg-gray-100 px-3 py-2 text-sm transition duration-150 ease-in-out ${
               selectedGroup === "Group 1" ? "bg-gray-100" : ""
             }`}
             onClick={() => handleGroupSelection("Group 1")}
@@ -38,7 +38,7 @@ export default function Sidebar({ onSelectGroup }: any) {
             <div className="w-full pb-2">
               <div className="flex justify-between">
                 <span className="ml-2 block font-semibold text-gray-600">
-                  Anatoly
+                  Group 1
                 </span>
                 <span className="ml-2 block text-sm text-gray-600">
                   25 minutes
@@ -50,7 +50,7 @@ export default function Sidebar({ onSelectGroup }: any) {
         </li>
         <li>
           <a
-            className={`flex cursor-pointer items-center border-b border-gray-300 bg-gray-100 px-3 py-2 text-sm transition duration-150 ease-in-out ${
+            className={`flex cursor-pointer items-center border-b border-gray-300 hover:bg-gray-100 px-3 py-2 text-sm transition duration-150 ease-in-out ${
               selectedGroup === "Group 2" ? "bg-gray-100" : ""
             }`}
             onClick={() => handleGroupSelection("Group 2")}
@@ -64,7 +64,7 @@ export default function Sidebar({ onSelectGroup }: any) {
             <div className="w-full pb-2">
               <div className="flex justify-between">
                 <span className="ml-2 block font-semibold text-gray-600">
-                  Solana
+                  Group 2
                 </span>
                 <span className="ml-2 block text-sm text-gray-600">
                   50 minutes
