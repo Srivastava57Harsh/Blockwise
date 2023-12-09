@@ -16,42 +16,42 @@ export default function ChatPage() {
   const contractAddress = "0x02285dA4A30884e7100B7F1C6Fa8cA8c7Bfa5690";
   const contract = new ethers.Contract(contractAddress, ContractABI.abi);
 
-  const { config } = usePrepareContractWrite({
-    address: "0x02285dA4A30884e7100B7F1C6Fa8cA8c7Bfa5690",
-    abi: ContractABI.abi,
-    functionName: "splitExpense",
-    args: [walletAddresses, amountInWei],    
-    value: ethers.parseEther("0"),
-    onError(error: any) {
-      console.log("Error", error);
-    },
-  })
+  // const { config } = usePrepareContractWrite({
+  //   address: "0xD9b259dAD40C3Ba608379c3184AE2c71321881Fd",
+  //   abi: ContractABI.abi,
+  //   functionName: "splitExpense",
+  //   args: [walletAddresses, amountInWei],    
+  //   value: ethers.parseEther("0"),
+  //   onError(error: any) {
+  //     console.log("Error", error);
+  //   },
+  // })
 
-  const { data, isLoading, isSuccess, write } = useContractWrite(config)
+  // const { data, isLoading, isSuccess, write } = useContractWrite(config)
 
   const splitExpense = () => {
     console.log("Button was clicked!");
-    write?.();
+    // write?.();
   }
 
 
-  // // Inside your component...
-  // const { data, isError, isLoading } = useContractRead({
-  //   address: '0x02285dA4A30884e7100B7F1C6Fa8cA8c7Bfa5690',
-  //   abi: ContractABI.abi,
-  //   functionName: 'getShares',
-  // });
+  // Inside your component...
+  const { data, isError, isLoading } = useContractRead({
+    address: '0xD9b259dAD40C3Ba608379c3184AE2c71321881Fd',
+    abi: ContractABI.abi,
+    functionName: 'getShares',
+  });
   
-  // useEffect(() => {
-  //   if (isError) {
-  //     console.error('Error reading contract:', isError);
-  //   }
+  useEffect(() => {
+    if (isError) {
+      console.error('Error reading contract:', isError);
+    }
   
-  //   if (data) {
-  //     setShares(data);
-  //     console.log(shares);
-  //   }
-  // }, [data, isError, shares]);
+    if (data) {
+      setShares(data);
+      console.log(shares);
+    }
+  }, [data, isError, shares]);
   
 
 
