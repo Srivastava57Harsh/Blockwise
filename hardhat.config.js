@@ -7,6 +7,7 @@ const MANTLE_RPC_ENDPOINT = process.env.NEXT_PUBLIC_MANTLE_RPC_ENDPOINT;
 const CELO_RPC_ENDPOINT = process.env.NEXT_PUBLIC_CELO_RPC_ENDPOINT;
 const PRIVATE_KEY = process.env.NEXT_PUBLIC_PRIVATE_KEY;
 const ETHERSCAN_API_KEY = process.env.NEXT_PUBLIC_ETHERSCAN_API_KEY;
+const CELOSCAN_API_KEY = process.env.NEXT_PUBLIC_CELOSCAN_API_KEY;
 
 module.exports = {
   solidity: "0.8.18",
@@ -26,7 +27,8 @@ module.exports = {
     },
     alfajores: {
       url: CELO_RPC_ENDPOINT,
-      accounts: [PRIVATE_KEY]
+      accounts: [PRIVATE_KEY],
+      chainId: 44787,
     }
   },
   etherscan: {

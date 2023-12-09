@@ -1,6 +1,61 @@
-import CreateSplitModal from "./CreateSplitModal";
+import { useState, useEffect } from "react";
+import { ethers } from "ethers";
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useContractRead,
+} from "wagmi";
+import ContractABI from "../../artifacts/contracts/SplitExpense.sol/SplitExpense.json";
 
 export default function ChatPage() {
+  const [walletAddresses, setWalletAddresses] = useState([
+    "0x696D8d3BDa41797e13578e85B8954C9Bc82C401a",
+    "0x05b854cD78C058e8FEC13Af7d5AfC7EbFb43C5d3",
+    "0xd2E578295312533DC9DD204eec7a2eAA50bFc3Fc",
+  ]);
+
+  const [expenseAmount, setExpenseAmount] = useState(0.01);
+  const [shares, setShares] = useState("data");
+  const amountInWei = ethers.parseEther(expenseAmount.toString());
+  const contractAddress = "0x02285dA4A30884e7100B7F1C6Fa8cA8c7Bfa5690";
+  const contract = new ethers.Contract(contractAddress, ContractABI.abi);
+
+  const { config } = usePrepareContractWrite({
+    address: "0x02285dA4A30884e7100B7F1C6Fa8cA8c7Bfa5690",
+    abi: ContractABI.abi,
+    functionName: "splitExpense",
+    args: [walletAddresses, amountInWei],
+    value: ethers.parseEther("0"),
+    onError(error: any) {
+      console.log("Error", error);
+    },
+  });
+
+  const { data, isLoading, isSuccess, write } = useContractWrite(config);
+
+  const splitExpense = () => {
+    console.log("Button was clicked!");
+    write?.();
+  };
+
+  // // Inside your component...
+  // const { data, isError, isLoading } = useContractRead({
+  //   address: '0x02285dA4A30884e7100B7F1C6Fa8cA8c7Bfa5690',
+  //   abi: ContractABI.abi,
+  //   functionName: 'getShares',
+  // });
+
+  // useEffect(() => {
+  //   if (isError) {
+  //     console.error('Error reading contract:', isError);
+  //   }
+
+  //   if (data) {
+  //     setShares(data);
+  //     console.log(shares);
+  //   }
+  // }, [data, isError, shares]);
+
   return (
     <div className="hidden lg:col-span-2 lg:block">
       <div className="w-full bg-200">
@@ -42,9 +97,9 @@ export default function ChatPage() {
               </div>
             </li>
             <li className="flex justify-start">
-              <div className="relative max-w-xl rounded-lg bg-gray-100 px-4  text-gray-700 shadow py-4">
+              <div className="relative max-w-xl rounded bg-gray-100 px-4 py-2 text-gray-700 shadow">
                 <span className="block">
-                  <div className="relative flex flex-col  text-gray-700 bg-white shadow-md bg-clip-border w-96 rounded-lg p-3">
+                  <div className="relative flex flex-col  text-gray-700 bg-white shadow-md bg-clip-border w-96 rounded-lg">
                     <div className="p-6 ">
                       <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                         Rs.2,520
@@ -55,7 +110,7 @@ export default function ChatPage() {
                     </div>
                     <div className="p-6 pt-0">
                       <button
-                        className="rounded-lg align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6  bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+                        className="rounded-none align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6  bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
                         type="button"
                       >
                         Settle the expense
@@ -69,22 +124,31 @@ export default function ChatPage() {
         </div>
 
         <div className="flex w-full items-center justify-between border-t border-gray-300 p-3">
-          <div className=" w-11/12">
-            <CreateSplitModal />
-          </div>
+          <button
+            className="bg-[#79D17F] hover:bg-blue-700 lg-200 w-3/5 text-white font-bold py-2 px-4 rounded"
+            onClick={splitExpense}
+          >
+            Split Expense
+          </button>
 
-          <div className="bg-black rounded-lg p-3 flex items-center">
-            <button type="submit">
-              <svg
-                className="h-6 w-6 origin-center rotate-90 transform text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-              </svg>
-            </button>
-          </div>
+          <input
+            type="text"
+            placeholder="Message"
+            className="mx-3 block w-2/5 rounded-full bg-gray-100 py-2 pl-4 outline-none focus:text-gray-700"
+            name="message"
+            required
+          />
+          <button></button>
+          <button type="submit">
+            <svg
+              className="h-6 w-6 origin-center rotate-90 transform text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>

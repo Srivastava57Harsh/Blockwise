@@ -7,7 +7,7 @@ import {
   darkTheme,
 } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { polygonMumbai } from "wagmi/chains";
+import { mantleTestnet, polygonMumbai } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { assertExists } from "../utils/assertExists";
@@ -57,7 +57,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const env = assertExists(process.env.NEXT_PUBLIC_MUMBAI_RPC_ENDPOINT);
   const { chains, publicClient } = configureChains(
-    [polygonMumbai],
+    [mantleTestnet],
     [alchemyProvider({ apiKey: env }), publicProvider()]
   );
 
