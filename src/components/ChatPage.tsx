@@ -15,7 +15,7 @@ export default function ChatPage() {
   ]);
 
   const [expenseAmount, setExpenseAmount] = useState(0.01);
-  const [shares, setShares] = useState("data");
+  const [shares, setShares] = useState({});
   const amountInWei = ethers.parseEther(expenseAmount.toString());
   const contractAddress = "0x02285dA4A30884e7100B7F1C6Fa8cA8c7Bfa5690";
   const contract = new ethers.Contract(contractAddress, ContractABI.abi);
