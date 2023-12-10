@@ -47,5 +47,5 @@ Technologies used in the project:
 *   RainbowKit
 *   Scroll
 *   Mantle
-*   Cello
+*   Celo
 *   Push Protocol
