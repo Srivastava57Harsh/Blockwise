@@ -24,9 +24,6 @@ Here're some of the project's best features:
   
 
 
-<h2>🚀 Demo</h2>
-
-[project](project)
 
 <h2>Project Screenshots:</h2>
 
