@@ -30,7 +30,21 @@ Here're some of the project's best features:
 
 <h2>Project Screenshots:</h2>
 
-<img src="" alt="project-screenshot" width="400" height="400/">
+![image](https://github.com/Srivastava57Harsh/ETHindia-2023/assets/58087328/488138fe-6296-4b7c-b6a5-b0d7b2cba653)
+
+![image](https://github.com/Srivastava57Harsh/ETHindia-2023/assets/58087328/4431a8b3-6b3a-41a4-9f76-5021ac4c3ed4)
+
+![image](https://github.com/Srivastava57Harsh/ETHindia-2023/assets/58087328/90b550d5-0a02-466e-b889-edafc5feafe7)
+
+![image](https://github.com/Srivastava57Harsh/ETHindia-2023/assets/58087328/750a309b-f7c7-4100-bdd0-a4432c755103)
+
+![image](https://github.com/Srivastava57Harsh/ETHindia-2023/assets/58087328/8dc121f9-3fc3-40b8-bd31-74795cdfa165)
+
+![image](https://github.com/Srivastava57Harsh/ETHindia-2023/assets/58087328/7d1f0ed0-0d70-4fae-98c9-86ed607e4442)
+
+![image](https://github.com/Srivastava57Harsh/ETHindia-2023/assets/58087328/5233efcc-e2ce-436f-82eb-e3f7d4e33abb)
+
+
   
 <h2>💻 Built with</h2>
 
