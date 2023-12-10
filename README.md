@@ -16,6 +16,13 @@ Here're some of the project's best features:
 *   A dashboard to manage all your wallets
 *   All the transactions history from multiple wallets at one place
 
+  <h2>Mantle Explorer</h2>
+   <p><a href="https://explorer.testnet.mantle.xyz/address/0xf3Ca255e5b8d726c5a8A38689e4C44b1Bb372c5B#code">Click Here</a> to check the deployment</p>
+
+   <h2>Cello Alfajores deployment</h2>
+   <p><a href="https://alfajores.celoscan.io/address/0x6a35ca1be214e90529a544ec50c275e27816cebe">Click Here</a> to check the deployment</p>
+  
+
 
 <h2>🚀 Demo</h2>
 
