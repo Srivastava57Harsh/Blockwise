@@ -61,7 +61,7 @@ export const Hero = () => {
               </div>
             </div>
           ))} */}
-          <div className="bg-white text-black font-bold py-2 px-4 rounded m-3 flex justify-between items-center">
+          <div className="bg-white text-black font-bold py-2 px-4 rounded m-3 flex justify-between items-center gap-4">
             <span className="text-black">{wallets.primary_wallet}</span>
             <div className="bg-[#79D17F] rounded-lg p-2 shadow-lg">
               <span className="text-black font-thin font-mono">0.11 ETH</span>

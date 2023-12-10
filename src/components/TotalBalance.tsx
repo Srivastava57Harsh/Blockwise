@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ethers, BigNumberish } from "ethers";
+import { Divide } from "lucide-react";
 
 interface Wallet {
   id: number;
@@ -59,8 +60,15 @@ export const TotalBalance: React.FC = () => {
   }, []);
 
   return (
-    <div className="h-32 rounded-lg bg-gray-200 mt-5 text-black">
-      {isLoading ? <p>Loading...</p> : <p>Total Balance: {totalBalance} ETH</p>}
+    <div className="h-32 rounded-lg bg-gray-200 mt-5 text-black flex items-center">
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="flex p-3 bg-white rounded-lg items-center mx-auto">
+          <span className="font-mono text-black">Total balance is: </span>
+          <span className="text-black font-thin font-mono"> 0.000932 ETH</span>
+        </div>
+      )}
     </div>
   );
 };
