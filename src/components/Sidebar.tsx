@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import GroupModal from "./GroupModal";
+import { useGroupContext } from "@/context/GroupContext";
 
 interface SidebarProps {
   onSelectGroup: (group: string) => void; // Prop to handle group selection
 }
 
 export default function Sidebar({ onSelectGroup }: any) {
-  const [groups, setGroups] = useState([]);
-  const [selectedGroup, setSelectedGroup] = useState(null);
+  const { selectedGroup, setSelectedGroup, groups, setGroups } = useGroupContext();
 
   useEffect(() => {
     // Fetch groups when the component mounts
@@ -46,7 +46,7 @@ export default function Sidebar({ onSelectGroup }: any) {
             <GroupModal />
           </div>
         </div>
-        {groups.map((group) => (
+        {groups && groups.map((group) => (
           <li key={group._id}>
             <a
               className={`flex cursor-pointer items-center border-b border-gray-300 hover:bg-gray-100 px-3 py-2 text-sm transition duration-150 ease-in-out ${
